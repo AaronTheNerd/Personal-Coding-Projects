@@ -9,7 +9,7 @@
 class Graph {
  public:
   Graph();
-  Node getNodeAt(int, int);
+  Node& getNodeAt(int, int) const;
   std::vector<Edge> getNeighbors(Node);
  private:
   void addNode(int, int);

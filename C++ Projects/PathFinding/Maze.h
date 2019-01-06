@@ -5,10 +5,13 @@
 #define _PATHFINDING_MAZE_H_
 #include "Graph.h"
 #include <string>
+#include <fstream>
 class Maze : public Graph {
  public:
-  Maze(std::string);
-  void ASolve();
-  void DijkstraSolve();
+  Maze(std::string, int, int);
+  void ASolve(std::ofstream&);
+  void DijkstraSolve(std::ofstream&);
+ private:
+  void initGraph(const std::ifstream&, int, int);
 };
 #endif

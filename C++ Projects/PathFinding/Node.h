@@ -9,8 +9,10 @@ class Node {
  public:
   Node();
   Node(int, int);
+  inline std::vector<Edge> getNeighbors() { return neighbors_; }
   inline int getX() { return x_; }
   inline int getY() { return y_; }
+  void addEdge(Edge);
  private:
   int x_;
   int y_;
