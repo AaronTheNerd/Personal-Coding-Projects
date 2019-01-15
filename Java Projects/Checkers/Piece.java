@@ -1,4 +1,4 @@
-import javax.awt.Color;
+import java.awt.Color;
 public class Piece {
   Player owner;
   int x, y;

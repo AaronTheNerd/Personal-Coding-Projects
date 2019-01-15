@@ -13,4 +13,9 @@ public class Player {
   void setColor(Color aColor) {
     piece_color = aColor;
   }
+  boolean equals(Player p) {
+    return p != null && this != null
+        && this.name.equals(p.name)
+        && this.piece_color == p.piece_color;
+  }
 }
