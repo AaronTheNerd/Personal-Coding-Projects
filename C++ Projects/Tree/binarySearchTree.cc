@@ -34,7 +34,7 @@ Tree::Node::Node(int val) {
   this->right_child_ = nullptr;
   this->val_ = val;
 }
-Tree::Node* Tree::Insert(Node* current, int val) {
+Tree::Node *Tree::Insert(Node *current, int val) {
   if (current == nullptr) {
     Node n(val);
     current = &n;
@@ -43,9 +43,9 @@ Tree::Node* Tree::Insert(Node* current, int val) {
   } else if (val >= current->val_) {
     current->right_child_ = Insert(current->right_child_, val);
   }
-  return current;  
+  return current;
 }
-bool Tree::Contains(Node* current, int val) {
+bool Tree::Contains(Node *current, int val) {
   if (current == nullptr)
     return false;
   if (current->val_ == val)
@@ -55,7 +55,7 @@ bool Tree::Contains(Node* current, int val) {
   else
     return Contains(current->right_child_, val);
 }
-Tree::Node* Tree::Remove(Node* current, int val) {
+Tree::Node *Tree::Remove(Node *current, int val) {
   if (current == nullptr)
     return nullptr;
   if (val < current->val_)
@@ -63,14 +63,14 @@ Tree::Node* Tree::Remove(Node* current, int val) {
   else if (val > current->val_)
     current->right_child_ = Remove(current->right_child_, val);
   else {
-    Node* temp = current;
+    Node *temp = current;
     current = FindMinFrom(current->right_child_);
     current->right_child_ = RemoveMinFrom(temp->right_child_);
     current->left_child_ = temp->left_child_;
   }
   return current;
 }
-Tree::Node* Tree::FindMinFrom(Node* current) {
+Tree::Node *Tree::FindMinFrom(Node *current) {
   if (current == nullptr)
     return nullptr;
   if (current->left_child_ == nullptr)
@@ -78,7 +78,7 @@ Tree::Node* Tree::FindMinFrom(Node* current) {
   else
     return FindMinFrom(current->left_child_);
 }
-Tree::Node* Tree::RemoveMinFrom(Node* current) {
+Tree::Node *Tree::RemoveMinFrom(Node *current) {
   if (current == nullptr)
     return nullptr;
   if (current->left_child_ == nullptr)

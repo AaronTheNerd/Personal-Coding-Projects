@@ -2,6 +2,7 @@
 // Copyright 2019
 
 #include "binarySearchTree.h"
+#include <stdio>
 int main(int argc, char** argv) {
   Tree* t;
   t->Add(5);
@@ -17,13 +18,17 @@ int main(int argc, char** argv) {
 
   if (!t->Contains(5))
     return 1;
+  std::cout << "Contain Test 1 PASSED" << std::endl;
   if (t->Contains(100))
     return 1;
+  std::cout << "Contain Test 2 PASSED" << std::endl;
   t->Pop();
   if (t->Contains(5))
     return 1;
+  std::cout << "Pop Test PASSED" << std::endl;
   t->Remove(10);
   if (t->Contains(10))
     return 1;
+  std::cout << "Remove Test PASSED" << std::endl;
   return 0;
 }

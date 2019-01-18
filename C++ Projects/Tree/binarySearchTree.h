@@ -26,5 +26,4 @@ class Tree {
   Node* FindMinFrom(Node* current);
   Node* RemoveMinFrom(Node* current);
 };
-#include "binarySearchTree.cc"
 #endif

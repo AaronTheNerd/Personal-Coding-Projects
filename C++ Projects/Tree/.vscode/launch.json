@@ -8,7 +8,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "C:/Users/AaronTheNerd/Documents/Personal-Coding-Projects/C++ Projects/Tree/a.exe",
+      "program": "C:/Users/AaronTheNerd/Documents/Personal-Coding-Projects/C++ Projects/Tree/a.out",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
