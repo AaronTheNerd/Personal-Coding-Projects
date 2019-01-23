@@ -7,7 +7,8 @@
                 "C:/MinGW/lib/gcc/mingw32/8.2.0/include/c++",
                 "C:/MinGW/lib/gcc/mingw32/8.2.0/include/c++/mingw32",
                 "C:/MinGW/include",
-                "C:/MinGW/lib/gcc/mingw32/8.2.0/include"
+                "C:/MinGW/lib/gcc/mingw32/8.2.0/include",
+                "C:/MinGW/lib/gcc/mingw32/8.2.0/include/c++"
             ],
             "defines": [
                 "_DEBUG",

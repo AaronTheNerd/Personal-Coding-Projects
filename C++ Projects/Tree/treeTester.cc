@@ -2,12 +2,15 @@
 // Copyright 2019
 
 #include "binarySearchTree.h"
-#include <stdio>
+#include <iostream>
 int main(int argc, char** argv) {
-  Tree* t;
+  Tree* t = new Tree;
   t->Add(5);
+  t->PrintTop();
   t->Add(4);
+  t->PrintTop();
   t->Add(19);
+  t->PrintTop();
   t->Add(2);
   t->Add(7);
   t->Add(12);
@@ -15,20 +18,26 @@ int main(int argc, char** argv) {
   t->Add(3);
   t->Add(10);
   t->Add(6);
-
-  if (!t->Contains(5))
+  t->PrintInOrder();
+  if (!t->Contains(5)) {
     return 1;
-  std::cout << "Contain Test 1 PASSED" << std::endl;
+  }
   if (t->Contains(100))
     return 1;
-  std::cout << "Contain Test 2 PASSED" << std::endl;
-  t->Pop();
-  if (t->Contains(5))
-    return 1;
-  std::cout << "Pop Test PASSED" << std::endl;
   t->Remove(10);
+  t->PrintInOrder();
   if (t->Contains(10))
     return 1;
-  std::cout << "Remove Test PASSED" << std::endl;
+  t->Remove(2);
+  t->PrintInOrder();
+  if (t->Contains(2))
+    return 1;
+  t->Remove(100);
+  t->PrintInOrder();
+  int old_root = t->Pop();
+  t->PrintTop();
+  t->PrintInOrder();
+  if (t->Contains(old_root))
+    return 1;
   return 0;
 }
