@@ -25,7 +25,9 @@ void Graph::addNode(int x, int y) {
   Node n(x, y);
   nodes_.push_back(n);
 }
-void Graph::addEdge(Node from, Node to, int weight) {
-  Edge e(to, weight);
-  from.addEdge(e);
+void Graph::Connect(Node from, Node to, int weight) {
+  Edge e1(to, weight);
+  from.addEdge(e1);
+  Edge e2(from, weight);
+  to.addEdge(e2);
 }

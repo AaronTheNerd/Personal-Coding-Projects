@@ -87,6 +87,7 @@ Tree::Node *Tree::Remove(Tree::Node *current, int val) {
     current = FindMinFrom(current->right_child_);
     current->right_child_ = RemoveMinFrom(temp->right_child_);
     current->left_child_ = temp->left_child_;
+    delete temp;
   }
   return current;
 }
@@ -122,21 +123,18 @@ void Tree::PrintInOrder(Tree::Node* current) {
 void Tree::PrintTop() {
   std::cout << "The address of the root is: " << this->root << std::endl;
   if (this->root) {
-    std::cout << "  The Root is not NULL" << std::endl;
     std::cout << "  And its value is: " << this->root->val_ << std::endl;
   } else {
     std::cout << "  The Root is NULL" << std::endl;
   }
   std::cout << "The address of the root's left child is: " << this->root->left_child_ << std::endl;
   if (this->root->left_child_) {
-    std::cout << "  The left child is not NULL " << std::endl;
     std::cout << "  And its value is: " << this->root->left_child_->val_ << std::endl;
   } else {
     std::cout << "  The left child is NULL" << std::endl;
   }
   std::cout << "The address of the root's right child is: " << this->root->right_child_ << std::endl;
   if (this->root->right_child_) {
-    std::cout << "  The right child is not NULL " << std::endl;
     std::cout << "  And its value is: " << this->root->right_child_->val_ << std::endl;
   } else {
     std::cout << "  The right child is NULL" << std::endl;

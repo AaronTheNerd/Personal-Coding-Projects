@@ -6,6 +6,7 @@
 #include "Maze.h"
 #endif
 Maze::Maze(std::string filename, int width, int height) {
+  
   std::ifstream img(filename);
   std::ofstream solved_img_1("SolvedMazeAStar.ppm");
   std::ofstream solved_img_2("SolvedMazeDijkstra.ppm");

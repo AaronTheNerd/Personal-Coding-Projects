@@ -13,7 +13,7 @@ class Graph {
   std::vector<Edge> getNeighbors(Node);
  private:
   void addNode(int, int);
-  void addEdge(Node, Node, int);
+  void Connect(Node, Node, int);
   Node start_;
   std::vector<Node> nodes_;
 };

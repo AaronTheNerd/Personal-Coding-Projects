@@ -3,7 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceRoot}",
+                "${workspaceFolder}/**",
                 "C:/MinGW/lib/gcc/mingw32/8.2.0/include/c++",
                 "C:/MinGW/lib/gcc/mingw32/8.2.0/include/c++/mingw32",
                 "C:/MinGW/include",
@@ -11,11 +11,12 @@
             ],
             "defines": [
                 "_DEBUG",
-                "UNICODE"
+                "UNICODE",
+                "_UNICODE"
             ],
-            "intelliSenseMode": "msvc-x64",
-            "limitSymbolsToIncludedHeaders": true,
-            "databaseFilename": ""
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
         }
     ],
     "version": 4
