@@ -16,8 +16,8 @@ class Dot {
     dot_gap = dot_gap_;
   }
   void show() {
-    stroke(0);
-    fill(0);
+    stroke(255);
+    fill(255);
     ellipse(x, y, radius, radius);
   }
   boolean equals(Dot d) {

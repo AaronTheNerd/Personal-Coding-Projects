@@ -37,7 +37,7 @@ class Line {
   
   void show() {
     if (owner == null)
-      show(200, 200, 200);
+      show(255, 255, 255);
     else
       show(owner.color_[0], owner.color_[1], owner.color_[2]);
   }

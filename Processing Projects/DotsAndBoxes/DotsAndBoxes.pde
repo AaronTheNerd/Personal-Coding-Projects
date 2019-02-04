@@ -2,12 +2,12 @@ Game dots_and_boxes;
 void setup() {
   fullScreen();
   //size(1500, 1000);
-  dots_and_boxes = new Game(10, 5);
+  dots_and_boxes = new Game(5, 3);
   dots_and_boxes.show();
   Player player_1 = new Player("Aaron");
-  player_1.SetColor(100, 0, 255);
-  Player player_2 = new Player("Jess`");
-  player_2.SetColor(255, 100, 0);
+  player_1.SetColor(0, 50, 255);
+  Player player_2 = new Player("Jess");
+  player_2.SetColor(255, 0, 0);
   dots_and_boxes.AddPlayer(player_1);
   dots_and_boxes.AddPlayer(player_2);
 }

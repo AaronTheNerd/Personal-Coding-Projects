@@ -24,7 +24,7 @@ class Game {
     dots = new Dot[x+1][y+1];
     lines = new Line[(2 * x * y) + x + y];
     boxes = new Box[x][y];
-    background(255);
+    background(0);
     initDots();
     //initLines();
     current_line = 0;
@@ -123,7 +123,7 @@ class Game {
         else if(player2.claimed.size() > player1.claimed.size())
           text(player2.name + " has won!", width / 2, height - height_gap / 2);
         else
-          text("It's a tie!", width / 2, height * 3 / 4);
+          text("It's a tie!", width / 2, height - height_gap / 2);
       }
     }
     Line closest = FindClosestLine(mouseX, mouseY);
