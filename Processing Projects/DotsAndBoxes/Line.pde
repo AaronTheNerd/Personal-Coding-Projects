@@ -1,3 +1,4 @@
+
 class Line {
   public static final boolean HORIZONTAL = true;
   public static final boolean VERTICAL = false;
@@ -7,6 +8,8 @@ class Line {
   float thickness;
   boolean orientation;
   Player owner;
+  
+  
   
   Line(Dot d1, Dot d2, boolean an_orientation) {
     dot_1 = d1;
@@ -20,6 +23,8 @@ class Line {
       center = new Dot(dot_1.x, dot_1.y + abs(dot_1.y - dot_2.y) / 2.0, 0);
   }
   
+  
+  
   boolean setOwner(Player p) {
     if (p != null && owner == null) {
       owner = p;
@@ -28,6 +33,8 @@ class Line {
     return false;
   }
   
+  
+  
   boolean equals(Line l) {
     return (dot_1.equals(l.dot_1)
         && dot_2.equals(l.dot_2))
@@ -35,12 +42,17 @@ class Line {
         && dot_2.equals(l.dot_1));
   }
   
+  
+  
   void show() {
     if (owner == null)
-      show(255, 255, 255);
+      show(240, 240, 240);
     else
       show(owner.color_[0], owner.color_[1], owner.color_[2]);
   }
+  
+  
+  
   void show(int c1, int c2, int c3, int c4) {
     fill(c1, c2, c3, c4);
     stroke(c1, c2, c3, c4);
@@ -50,6 +62,9 @@ class Line {
       rect(dot_1.x - thickness / 2.0, dot_1.y, thickness, abs(dot_1.y - dot_2.y));
     }
   }
+  
+  
+  
   void show(Player p) {
     if (owner != null)
       return;
@@ -62,6 +77,9 @@ class Line {
     else
       show();
   }
+  
+  
+  
   void show(int c1, int c2, int c3) {
     fill(c1, c2, c3);
     stroke(c1, c2, c3);

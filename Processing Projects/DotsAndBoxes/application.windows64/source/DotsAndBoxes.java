@@ -15,22 +15,35 @@ import java.io.IOException;
 public class DotsAndBoxes extends PApplet {
 
 Game dots_and_boxes;
+
+
+
 public void setup() {
   
-  //size(1500, 1000);
   dots_and_boxes = new Game(5, 3);
   dots_and_boxes.show();
-  Player player_1 = new Player("Aaron");
+  setupPlayers("Aaron", "Jess");
+}
+
+
+
+public void setupPlayers(String player1, String player2) {
+  Player player_1 = new Player(player1);
   player_1.SetColor(0, 50, 255);
-  Player player_2 = new Player("Jess");
+  Player player_2 = new Player(player2);
   player_2.SetColor(255, 0, 0);
   dots_and_boxes.AddPlayer(player_1);
   dots_and_boxes.AddPlayer(player_2);
 }
 
+
+
 public void draw() {
   dots_and_boxes.show();
 }
+
+
+
 public void mouseClicked() {
   Line l = dots_and_boxes.FindClosestLine(mouseX, mouseY);
   boolean line_changed = l.setOwner(dots_and_boxes.current);
@@ -44,6 +57,8 @@ class Box {
   Player owner;
   Line[] borders;
   
+  
+  
   Box(Line l1, Line l2, Line l3, Line l4) {
     borders = new Line[4];
     borders[0] = l1;
@@ -53,6 +68,8 @@ class Box {
     owner = null;
   }
   
+  
+  
   public boolean CheckIfOwned(Player current) {
     for (Line l : borders)
       if (l.owner == null)
@@ -60,9 +77,10 @@ class Box {
     owner = current;
     current.claimed.add(this);
     show();
-    println("A box has been claimed");
     return true;
   }
+  
+  
   
   public boolean contains(Line line) {
     for (Line l : borders) {
@@ -72,30 +90,43 @@ class Box {
     return false;
   }
   
+  
+  
   public float minX() {
     float[] xs = new float[4];
     for (int i = 0; i < xs.length; ++i)
       xs[i] = borders[i].dot_1.x;
     return min(xs);
   }
+  
+  
+  
   public float minY() {
     float[] ys = new float[4];
     for (int i = 0; i < ys.length; ++i)
       ys[i] = borders[i].dot_1.y;
     return min(ys);
   }
+  
+  
+  
   public float maxX() {
     float[] xs = new float[4];
     for (int i = 0; i < xs.length; ++i)
       xs[i] = borders[i].dot_1.x;
     return max(xs);
   }
+  
+  
+  
   public float maxY() {
     float[] ys = new float[4];
     for (int i = 0; i < ys.length; ++i)
       ys[i] = borders[i].dot_1.y;
     return max(ys);
   }
+  
+  
   
   public void show() {
     fill(owner.color_[0], owner.color_[1], owner.color_[2], 150);
@@ -106,32 +137,28 @@ class Box {
 }
 class Dot {
   float x, y, radius;
-  float margin, height_gap, dot_gap;
+  
+  
+  
   Dot(float x_, float y_, float radius_) {
     x = x_;
     y = y_;
     radius = radius_;
   }
-  public void addMargin(float margin_) {
-    margin = margin_;
-  }
-  public void addHeight(float height_gap_) {
-    height_gap = height_gap_;
-  }
-  public void addGap(float dot_gap_) {
-    dot_gap = dot_gap_;
-  }
+  
+  
+  
   public void show() {
     stroke(255);
     fill(255);
     ellipse(x, y, radius, radius);
   }
+  
+  
+  
   public boolean equals(Dot d) {
     return x == d.x
         && y == d.y;
-  }
-  public void print() {
-    println("  X: " + (x - margin) / dot_gap + " , Y: " + (y - height_gap) / dot_gap);
   }
 }
 class Game {
@@ -146,9 +173,26 @@ class Game {
   Line[] lines;
   int current_line;
   Box[][] boxes;
+  
+  
+  
   Game(int x_, int y_) {
     x = x_;
     y = y_;
+    generateBounds();
+    dots = new Dot[x+1][y+1];
+    lines = new Line[(2 * x * y) + x + y];
+    boxes = new Box[x][y];
+    background(137, 189, 255);
+    initDots();
+    current_line = 0;
+    initBoxes();
+    current = player1 = player2 = null;
+  }
+  
+  
+  
+  public void generateBounds() {
     margin = width / 20.0f;
     height_gap = height / 20.0f;
     float dot_gap_x = (width - 2.0f * margin) / PApplet.parseFloat(x + 1);
@@ -157,26 +201,20 @@ class Game {
     margin = (width - (dot_gap * x)) / 2.0f;
     height_gap = (height - (dot_gap * y)) / 2.0f;
     radius = dot_gap / 7.5f;
-    dots = new Dot[x+1][y+1];
-    lines = new Line[(2 * x * y) + x + y];
-    boxes = new Box[x][y];
-    background(0);
-    initDots();
-    //initLines();
-    current_line = 0;
-    initBoxes();
-    current = player1 = player2 = null;
   }
+  
+  
+  
   public void initDots() {
     for (float x_ = margin, i = 0; i <= x; x_ += dot_gap, i++) {
       for (float y_ = height_gap, j = 0; j <= y; y_ += dot_gap, j++) {
         dots[PApplet.parseInt(i)][PApplet.parseInt(j)] = new Dot(x_, y_, radius);
-        dots[PApplet.parseInt(i)][PApplet.parseInt(j)].addMargin(margin);
-        dots[PApplet.parseInt(i)][PApplet.parseInt(j)].addHeight(height_gap);
-        dots[PApplet.parseInt(i)][PApplet.parseInt(j)].addGap(dot_gap);
       }
     }
   }
+  
+  
+  
   public void initBoxes() {
     for (int x_ = 0; x_ < x; ++x_) {
       for (int y_ = 0; y_ < y; ++y_) {
@@ -202,10 +240,16 @@ class Game {
       }
     }
   }
+  
+  
+  
   public void add(Line l) {
     lines[current_line] = l;
     current_line++;
   }
+  
+  
+  
   public Line findLine(Dot d1, Dot d2) {
     Line looking = new Line(d1, d2, Line.HORIZONTAL);
     for (int i = 0; i < current_line; ++i)
@@ -213,6 +257,9 @@ class Game {
         return lines[i];
     return null;
   }
+  
+  
+  
   public void AddPlayer(Player p) {
     if (current == null)
       current = p;
@@ -221,6 +268,9 @@ class Game {
     else
       player2 = p;
   }
+  
+  
+  
   public Line FindClosestLine(float x_, float y_) {
     Line closest = lines[0];
     for (int i = 1; i < lines.length; ++i) {
@@ -232,6 +282,9 @@ class Game {
     }
     return closest;
   }
+  
+  
+  
   public boolean checkForBoxes(Line l) {
     boolean result = false;
     for (int x_ = 0; x_ < x; ++x_) {
@@ -245,10 +298,48 @@ class Game {
     }
     return result;
   }
+  
+  
+  
   public void switchPlayer() {
     current = (current.equals(player1)) ? player2 : player1;
   }
+  
+  
+  
   public void show() {
+    checkWin();
+    showLines();
+    showDots();
+  }
+  
+  
+  
+  public void showLines() {
+    Line closest = FindClosestLine(mouseX, mouseY);
+    for (Line l : lines) {
+      if (current != null) {
+        if (l.equals(closest))
+          l.show(current);
+        else
+          l.show();
+      }
+      else
+        l.show();
+    }
+  }
+  
+  
+  
+  public void showDots() {
+    for (Dot[] ds : dots)
+      for (Dot d : ds)
+          d.show();
+  }
+  
+  
+  
+  public void checkWin() {
     if (player1 != null && player2 != null) {
       if (player1.claimed.size() + player2.claimed.size() == x * y) {
         textSize(height_gap / 2);
@@ -262,20 +353,6 @@ class Game {
           text("It's a tie!", width / 2, height - height_gap / 2);
       }
     }
-    Line closest = FindClosestLine(mouseX, mouseY);
-    for (Line l : lines) {
-      if (current != null) {
-        if (l.equals(closest))
-          l.show(current);
-        else
-          l.show();
-      }
-      else
-        l.show();
-    }
-    for (Dot[] ds : dots)
-      for (Dot d : ds)
-        d.show();
   }
 }
 class Line {
@@ -287,6 +364,8 @@ class Line {
   float thickness;
   boolean orientation;
   Player owner;
+  
+  
   
   Line(Dot d1, Dot d2, boolean an_orientation) {
     dot_1 = d1;
@@ -300,6 +379,8 @@ class Line {
       center = new Dot(dot_1.x, dot_1.y + abs(dot_1.y - dot_2.y) / 2.0f, 0);
   }
   
+  
+  
   public boolean setOwner(Player p) {
     if (p != null && owner == null) {
       owner = p;
@@ -308,6 +389,8 @@ class Line {
     return false;
   }
   
+  
+  
   public boolean equals(Line l) {
     return (dot_1.equals(l.dot_1)
         && dot_2.equals(l.dot_2))
@@ -315,12 +398,17 @@ class Line {
         && dot_2.equals(l.dot_1));
   }
   
+  
+  
   public void show() {
     if (owner == null)
-      show(255, 255, 255);
+      show(240, 240, 240);
     else
       show(owner.color_[0], owner.color_[1], owner.color_[2]);
   }
+  
+  
+  
   public void show(int c1, int c2, int c3, int c4) {
     fill(c1, c2, c3, c4);
     stroke(c1, c2, c3, c4);
@@ -330,6 +418,9 @@ class Line {
       rect(dot_1.x - thickness / 2.0f, dot_1.y, thickness, abs(dot_1.y - dot_2.y));
     }
   }
+  
+  
+  
   public void show(Player p) {
     if (owner != null)
       return;
@@ -342,6 +433,9 @@ class Line {
     else
       show();
   }
+  
+  
+  
   public void show(int c1, int c2, int c3) {
     fill(c1, c2, c3);
     stroke(c1, c2, c3);
@@ -357,10 +451,15 @@ class Player {
   int[] color_;
   ArrayList<Box> claimed;
   
+  
+  
   Player(String name_) {
     name = name_;
     claimed = new ArrayList<Box>();
   }
+  
+  
+  
   public void SetColor(int color_1, int color_2, int color_3) {
     color_ = new int[3];
     color_[0] = color_1;

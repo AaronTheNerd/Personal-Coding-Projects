@@ -10,9 +10,26 @@ class Game {
   Line[] lines;
   int current_line;
   Box[][] boxes;
+  
+  
+  
   Game(int x_, int y_) {
     x = x_;
     y = y_;
+    generateBounds();
+    dots = new Dot[x+1][y+1];
+    lines = new Line[(2 * x * y) + x + y];
+    boxes = new Box[x][y];
+    background(137, 189, 255);
+    initDots();
+    current_line = 0;
+    initBoxes();
+    current = player1 = player2 = null;
+  }
+  
+  
+  
+  void generateBounds() {
     margin = width / 20.0;
     height_gap = height / 20.0;
     float dot_gap_x = (width - 2.0 * margin) / float(x + 1);
@@ -21,26 +38,20 @@ class Game {
     margin = (width - (dot_gap * x)) / 2.0;
     height_gap = (height - (dot_gap * y)) / 2.0;
     radius = dot_gap / 7.5;
-    dots = new Dot[x+1][y+1];
-    lines = new Line[(2 * x * y) + x + y];
-    boxes = new Box[x][y];
-    background(0);
-    initDots();
-    //initLines();
-    current_line = 0;
-    initBoxes();
-    current = player1 = player2 = null;
   }
+  
+  
+  
   void initDots() {
     for (float x_ = margin, i = 0; i <= x; x_ += dot_gap, i++) {
       for (float y_ = height_gap, j = 0; j <= y; y_ += dot_gap, j++) {
         dots[int(i)][int(j)] = new Dot(x_, y_, radius);
-        dots[int(i)][int(j)].addMargin(margin);
-        dots[int(i)][int(j)].addHeight(height_gap);
-        dots[int(i)][int(j)].addGap(dot_gap);
       }
     }
   }
+  
+  
+  
   void initBoxes() {
     for (int x_ = 0; x_ < x; ++x_) {
       for (int y_ = 0; y_ < y; ++y_) {
@@ -66,10 +77,16 @@ class Game {
       }
     }
   }
+  
+  
+  
   void add(Line l) {
     lines[current_line] = l;
     current_line++;
   }
+  
+  
+  
   Line findLine(Dot d1, Dot d2) {
     Line looking = new Line(d1, d2, Line.HORIZONTAL);
     for (int i = 0; i < current_line; ++i)
@@ -77,6 +94,9 @@ class Game {
         return lines[i];
     return null;
   }
+  
+  
+  
   void AddPlayer(Player p) {
     if (current == null)
       current = p;
@@ -85,6 +105,9 @@ class Game {
     else
       player2 = p;
   }
+  
+  
+  
   Line FindClosestLine(float x_, float y_) {
     Line closest = lines[0];
     for (int i = 1; i < lines.length; ++i) {
@@ -96,6 +119,9 @@ class Game {
     }
     return closest;
   }
+  
+  
+  
   boolean checkForBoxes(Line l) {
     boolean result = false;
     for (int x_ = 0; x_ < x; ++x_) {
@@ -109,10 +135,48 @@ class Game {
     }
     return result;
   }
+  
+  
+  
   void switchPlayer() {
     current = (current.equals(player1)) ? player2 : player1;
   }
+  
+  
+  
   void show() {
+    checkWin();
+    showLines();
+    showDots();
+  }
+  
+  
+  
+  void showLines() {
+    Line closest = FindClosestLine(mouseX, mouseY);
+    for (Line l : lines) {
+      if (current != null) {
+        if (l.equals(closest))
+          l.show(current);
+        else
+          l.show();
+      }
+      else
+        l.show();
+    }
+  }
+  
+  
+  
+  void showDots() {
+    for (Dot[] ds : dots)
+      for (Dot d : ds)
+          d.show();
+  }
+  
+  
+  
+  void checkWin() {
     if (player1 != null && player2 != null) {
       if (player1.claimed.size() + player2.claimed.size() == x * y) {
         textSize(height_gap / 2);
@@ -126,19 +190,5 @@ class Game {
           text("It's a tie!", width / 2, height - height_gap / 2);
       }
     }
-    Line closest = FindClosestLine(mouseX, mouseY);
-    for (Line l : lines) {
-      if (current != null) {
-        if (l.equals(closest))
-          l.show(current);
-        else
-          l.show();
-      }
-      else
-        l.show();
-    }
-    for (Dot[] ds : dots)
-      for (Dot d : ds)
-        d.show();
   }
 }

@@ -1,20 +1,37 @@
+// Written by Aaron Barge
+// Copyright 2019
 Game dots_and_boxes;
+// Welcome to the code for the game Dots and Boxes
+// This is a two-player game with the goal of collecting the most boxes
+// To do this you and another player will take turns claiming lines
+// Whoever claims the last line of a box will win the box
+// When there are no unclaimed boxes left the player with the most wins
 void setup() {
   fullScreen();
-  //size(1500, 1000);
-  dots_and_boxes = new Game(5, 3);
+  dots_and_boxes = new Game(10, 5); // You can change the size of the game here
   dots_and_boxes.show();
-  Player player_1 = new Player("Aaron");
-  player_1.SetColor(0, 50, 255);
-  Player player_2 = new Player("Jess");
-  player_2.SetColor(255, 0, 0);
+  setupPlayers("Aaron", "Jess"); // You can change the players' names
+}
+
+
+
+void setupPlayers(String player1, String player2) {
+  Player player_1 = new Player(player1);
+  player_1.SetColor(0, 50, 255); // Here you can set each player 1's color
+  Player player_2 = new Player(player2);
+  player_2.SetColor(255, 0, 0); // Here you can set each player 2's color
   dots_and_boxes.AddPlayer(player_1);
   dots_and_boxes.AddPlayer(player_2);
 }
 
+
+
 void draw() {
   dots_and_boxes.show();
 }
+
+
+
 void mouseClicked() {
   Line l = dots_and_boxes.FindClosestLine(mouseX, mouseY);
   boolean line_changed = l.setOwner(dots_and_boxes.current);
