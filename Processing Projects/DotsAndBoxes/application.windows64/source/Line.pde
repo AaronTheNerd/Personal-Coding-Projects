@@ -1,3 +1,5 @@
+// Written by Aaron Barge
+// Copyright 2019
 class Line {
   public static final boolean HORIZONTAL = true;
   public static final boolean VERTICAL = false;

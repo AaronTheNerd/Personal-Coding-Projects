@@ -1,3 +1,5 @@
+// Written by Aaron Barge
+// Copyright 2019
 class Box {
   Player owner;
   Line[] borders;

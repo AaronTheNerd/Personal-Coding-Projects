@@ -1,4 +1,7 @@
+// Written by Aaron Barge
+// Copyright 2019
 class Game {
+  public final int[] background_color = {137, 189, 225};
   Player current;
   Player player1;
   Player player2;
@@ -20,7 +23,7 @@ class Game {
     dots = new Dot[x+1][y+1];
     lines = new Line[(2 * x * y) + x + y];
     boxes = new Box[x][y];
-    background(137, 189, 255);
+    background(background_color[0], background_color[1], background_color[2]);
     initDots();
     current_line = 0;
     initBoxes();
@@ -29,7 +32,7 @@ class Game {
   
   
   
-  void generateBounds() {
+  private void generateBounds() {
     margin = width / 20.0;
     height_gap = height / 20.0;
     float dot_gap_x = (width - 2.0 * margin) / float(x + 1);
@@ -42,17 +45,17 @@ class Game {
   
   
   
-  void initDots() {
+  private void initDots() {
     for (float x_ = margin, i = 0; i <= x; x_ += dot_gap, i++) {
       for (float y_ = height_gap, j = 0; j <= y; y_ += dot_gap, j++) {
         dots[int(i)][int(j)] = new Dot(x_, y_, radius);
       }
     }
   }
-  
-  
-  
-  void initBoxes() {
+  // I know this next method is kind of messy but
+  // It does make sure that there is only one instance of each line
+  // And that when that instance is changed it changes the box's instance
+  private void initBoxes() {
     for (int x_ = 0; x_ < x; ++x_) {
       for (int y_ = 0; y_ < y; ++y_) {
         Line top;
@@ -80,14 +83,14 @@ class Game {
   
   
   
-  void add(Line l) {
+  private void add(Line l) {
     lines[current_line] = l;
     current_line++;
   }
   
   
   
-  Line findLine(Dot d1, Dot d2) {
+  private Line findLine(Dot d1, Dot d2) {
     Line looking = new Line(d1, d2, Line.HORIZONTAL);
     for (int i = 0; i < current_line; ++i)
       if (lines[i].equals(looking))
@@ -152,7 +155,7 @@ class Game {
   
   
   
-  void showLines() {
+  private void showLines() {
     Line closest = FindClosestLine(mouseX, mouseY);
     for (Line l : lines) {
       if (current != null) {
@@ -168,27 +171,80 @@ class Game {
   
   
   
-  void showDots() {
+  private void showDots() {
     for (Dot[] ds : dots)
       for (Dot d : ds)
           d.show();
   }
   
   
-  
-  void checkWin() {
+  private void checkWin() {
+    resetTextAreas();
+    fill(255);
     if (player1 != null && player2 != null) {
+      textSize(height_gap / 2);
+      textAlign(CENTER, CENTER);
       if (player1.claimed.size() + player2.claimed.size() == x * y) {
-        textSize(height_gap / 2);
-        textAlign(CENTER, CENTER);
         text("Game over", width/2, height_gap / 2);
         if (player1.claimed.size() > player2.claimed.size())
-          text(player1.name + " has won!", width / 2, height - height_gap / 2);
+          displayWinner(player1);
         else if(player2.claimed.size() > player1.claimed.size())
-          text(player2.name + " has won!", width / 2, height - height_gap / 2);
+          displayWinner(player2);
         else
           text("It's a tie!", width / 2, height - height_gap / 2);
+      } else {
+        text("It's " + current.name + "\'s turn", width/2, height_gap / 2);
       }
     }
+  }
+  
+  
+  
+  private void displayWinner(Player p) {
+    text(p.name + " has won!", width / 2, height - height_gap / 2);
+  }
+  
+  
+  
+  void reset() {
+    background(background_color[0], background_color[1], background_color[2]); 
+    resetTextAreas();
+    resetLines();
+    resetBoxes();
+    resetPlayers();
+  }
+  
+  
+  
+  private void resetTextAreas() {
+    fill(background_color[0], background_color[1], background_color[2]); 
+    stroke(background_color[0], background_color[1], background_color[2]);
+    rect(0, 0, width, height_gap - radius / 4);
+    rect(height_gap - radius / 4, height, width, height_gap - radius / 4);
+  }
+  
+  
+  
+  private void resetLines() {
+    for (Line l : lines)
+      l.owner = null;
+  }
+  
+  
+  
+  private void resetBoxes() {
+    for (Box[] bs : boxes) {
+      for (Box b : bs) {
+        b.owner = null;
+      }
+    }
+  }
+  
+  
+  
+  private void resetPlayers() {
+    current = player1;
+    player1.claimed.clear();
+    player2.claimed.clear();
   }
 }

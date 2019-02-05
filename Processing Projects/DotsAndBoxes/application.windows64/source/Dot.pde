@@ -1,3 +1,5 @@
+// Written by Aaron Barge
+// Copyright 2019
 class Dot {
   float x, y, radius;
   
