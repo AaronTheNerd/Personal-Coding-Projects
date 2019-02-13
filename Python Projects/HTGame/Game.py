@@ -39,7 +39,7 @@ class Game(object):
     self.gameOver = False
     while not self.gameOver:
       rand = random.randint(0,1)
-      self.flips = self.flips + ("H" if rand is 0 else "T")
+      self.flips = self.flips + ("H" if rand is 1 else "T")
       if len(self.flips) >= 5:
         if self.flips[-5:] == self.player1.choice:
           self.player1.hasWon()
@@ -55,7 +55,7 @@ class Game(object):
 bob = Person("Bob", "HTTTH")
 alice = Person("Alice", "TTTTH")
 game = Game(bob, alice)
-num_of_rounds = 10000
+num_of_rounds = 100000
 startTime = time.time()
 for rounds in range(num_of_rounds):
   game.play()
