@@ -19,46 +19,47 @@
 # If I had to guess the odds are 17/32 that Alice wins
 import random, time
 class Person(object):
-  def __init__(self, name, choice):
-    self.name = name
-    self.choice = choice
-    self.wins = 0
-  def hasWon(self):
-    print(self.name + " has won!")
-    self.wins = self.wins + 1
-  def print(self, num_of_rounds):
-    print(self.name + " has won " + str(round(self.wins / num_of_rounds * 100, 2)) + "% of the time")
+    def __init__(self, name, choice):
+        self.name = name
+        self.choice = choice
+        self.wins = 0
+    def hasWon(self):
+        print(self.name + " has won!")
+        self.wins = self.wins + 1
+    def print(self, num_of_rounds):
+        print(self.name + " has won " + str(round(self.wins / num_of_rounds * 100, 2)) + "% of the time")
 class Game(object):
-  def __init__(self, player1, player2):
-    self.gameOver = False
-    self.flips = ""
-    self.player1 = player1
-    self.player2 = player2
-  def play(self):
-    self.flips = ""
-    self.gameOver = False
-    while not self.gameOver:
-      rand = random.randint(0,1)
-      self.flips = self.flips + ("H" if rand is 1 else "T")
-      if len(self.flips) >= 5:
-        if self.flips[-5:] == self.player1.choice:
-          self.player1.hasWon()
-          self.gameOver = True
-        elif self.flips[-5:] == self.player2.choice:
-          self.player2.hasWon()
-          self.gameOver = True
-    print(self.flips)
-  def printStats(self, num_of_rounds):
-    self.player1.print(num_of_rounds)
-    self.player2.print(num_of_rounds)
+    def __init__(self, player1, player2):
+        self.gameOver = False
+        self.flips = ""
+        self.player1 = player1
+        self.player2 = player2
+    def play(self):
+        self.flips = ""
+        self.gameOver = False
+        while not self.gameOver:
+            rand = random.randint(0,1)
+            self.flips = self.flips + ("H" if rand is 1 else "T")
+            if len(self.flips) >= 5:
+                if self.flips[-5:] == self.player1.choice:
+                    self.player1.hasWon()
+                    self.gameOver = True
+                    print(self.flips)
+                elif self.flips[-5:] == self.player2.choice:
+                    self.player2.hasWon()
+                    self.gameOver = True
+                    print(self.flips)
+    def printStats(self, num_of_rounds):
+        self.player1.print(num_of_rounds)
+        self.player2.print(num_of_rounds)
 
 bob = Person("Bob", "HTTTH")
 alice = Person("Alice", "TTTTH")
 game = Game(bob, alice)
-num_of_rounds = 100000
+num_of_rounds = 10000
 startTime = time.time()
 for rounds in range(num_of_rounds):
-  game.play()
+    game.play()
 endTime = time.time()
 game.printStats(num_of_rounds)
 print("Took " + str(round(endTime - startTime, 1)) + " secs to calculate")
