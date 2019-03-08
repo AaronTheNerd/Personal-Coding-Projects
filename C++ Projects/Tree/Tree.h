@@ -8,16 +8,16 @@ class Tree {
  public:
   virtual void Add(T val) = 0;
   virtual void Remove(T val) = 0;
-  virtual bool Contains(T val) = 0;
-  virtual T Top() = 0;
-  virtual void Print() = 0;
+  virtual bool Contains(T val) const = 0;
+  virtual T Top() const = 0;
+  virtual void Print() const = 0;
  private:
-  virtual class Node<T> {
+  class Node {
    public:
-    Node<T>();
-    Node<T>(T val);
+    Node();
+    Node(T val);
     T val;
   };
-  Node<T>* root;
+  Node* root;
 };
 #endif

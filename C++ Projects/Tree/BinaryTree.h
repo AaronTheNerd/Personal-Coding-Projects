@@ -7,7 +7,7 @@
 template <class T>
 class BinaryTree : public Tree<T> {
  public:
-  BinaryTree<T>();
+  BinaryTree();
   void Add(T);
   void Remove(T);
   bool Contains(T) const;
@@ -15,21 +15,22 @@ class BinaryTree : public Tree<T> {
   void Print() const;
   void PrintInOrder() const;
   void PrintPostOrder() const;
-  class Node<T> {
+  class Node {
    public:
-    Node<T>();
-    Node<T>(T val);
-    Node<T>(T val, Node<T>* left_, Node<T>* right_);
+    Node();
+    Node(T val);
+    Node(T val, Node* left_, Node* right_);
    private:
-    Node<T>* left;
-    Node<T>* right;
+    Node* left;
+    Node* right;
     T val;
   };
  private:
-  Node<T>* root;
-  Node* Insert(Node<T>*, T);
-  Node* Remove(Node<T>*, T);
-  bool Contains(Node<T>*, T) const;
+  BinaryTree::Node* root;
+  Node* Insert(Node*, T);
+  Node* Remove(Node*, T);
+  bool Contains(Node*, T) const;
+  void PrintInOrder(Node*) const;
 };
 #include "BinaryTree.cc"
 #endif
