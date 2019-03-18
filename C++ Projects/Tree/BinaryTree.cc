@@ -7,7 +7,8 @@
 #define _TREE_BINARY_SEARCH_TREE_CC_
 #include "BinaryTree.h"
 #endif
-
+template <class T>
+using BTSNode = BinaryTree<T>::Node;
 template <class T>
 BinaryTree<T>::BinaryTree() {
   this->root = NULL;
@@ -15,12 +16,12 @@ BinaryTree<T>::BinaryTree() {
 template <class T>
 void BinaryTree<T>::Add(T val_) {
   if (this->root == NULL)
-    this->root = new Node(val);
-  if (!this->Contains(val))
-    Insert(this->root, val)
+    this->root = new Node(val_);
+  if (!this->Contains(val_))
+    Insert(this->root, val_);
 }
 template <class T>
-BinaryTree<T>::Node* BinaryTree<T>::Insert(BinaryTree<T>::Node* current, T val) {
+BTSNode* BinaryTree<T>::Insert(BinaryTree<T>::Node* current, T val) {
   if (current == NULL)
     current = new Node(val);
   else if (val < current->val)

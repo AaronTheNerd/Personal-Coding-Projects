@@ -1,5 +1,7 @@
 // Written by Aaron Barge
 // Copyright 2019
+// I know that the name 'binary tree' does not imply
+// binary search tree but that is what this is.
 
 #ifndef _TREE_BINARY_SEARCH_TREE_H_
 #define _TREE_BINARY_SEARCH_TREE_H_
