@@ -1,9 +1,15 @@
-# Written by Aaron Barge
-# Copyright 2019
-# I don't know what it is but change returners have always eluded me
-# I think it has something to do with floating point rounding errors
-# But I think this works
+'''
+Written by Aaron Barge
+Copyright 2019
+I don't know what it is but change returners have always eluded me
+I think it has something to do with floating point rounding errors
+But I think this works
+'''
+
 def main():
+    '''
+    The main method for obtaining values and creating change return
+    '''
     cost = None
     while cost is None:
         try:
@@ -40,12 +46,15 @@ def main():
         change = change_to_cash(change, cash)
         print(change)
 def change_to_cash(change, cash):
+    '''
+    This function changes a cash amount to an equivalent amount of change
+    '''
     index = 0
     ret_cash = cash.copy()
     for item in cash:
         ret_cash[item] = 0
     while change != 0:
-        while round(change,2) >= round(list(cash.values())[index], 2):
+        while round(change, 2) >= round(list(cash.values())[index], 2):
             if index < len(cash):
                 ret_cash[list(ret_cash.keys())[index]] = ret_cash[list(ret_cash.keys())[index]] + 1
                 change = change - list(cash.values())[index]
