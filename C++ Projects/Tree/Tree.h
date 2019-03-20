@@ -10,6 +10,8 @@ class Tree {
   virtual void Remove(T val) = 0;
   virtual bool Contains(T val) const = 0;
   virtual T Top() const = 0;
+  virtual T Pop() = 0;
+  virtual void PrintTop() const = 0;
   virtual void Print() const = 0;
  private:
   class Node {
