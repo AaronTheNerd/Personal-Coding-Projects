@@ -10,14 +10,13 @@
 #endif
 
 bool testBinaryTree(Tree<int>* t);
-//bool testDoublyLinkedTree(Tree<int>* t);
-//bool testHuffmanTree(Tree<int>* t);
+bool testDoublyLinkedTree(Tree<int>* t);
+bool testHuffmanTree(Tree<int>* t);
 
 int main(int argc, char** argv) {
   Tree<int>* Tree = new BinaryTree<int>();
-  std::cout << "Testing Binary Search Tree" << std::endl;
   if (!testBinaryTree(Tree))
-    std::cout << "Binary Search Tree FAILED" << std::endl;
+    return 1;
   return 0;
 }
 bool testBinaryTree(Tree<int>* t) {
@@ -35,6 +34,8 @@ bool testBinaryTree(Tree<int>* t) {
   t->Add(10);
   t->Add(6);
   t->Print();
+  std::cout << "The size of the tree is currently: " << t->Size() << std::endl;
+  std::cout << "The maximum depth of the tree is currentlty: " << t->MaxDepth() << std::endl;
   if (!t->Contains(5))
     return false;
   if (t->Contains(100))
@@ -55,4 +56,7 @@ bool testBinaryTree(Tree<int>* t) {
   if (t->Contains(old_root))
     return false;
   return true;
+}
+bool testDoublyLinkedTree(Tree<int>* t) {
+
 }
