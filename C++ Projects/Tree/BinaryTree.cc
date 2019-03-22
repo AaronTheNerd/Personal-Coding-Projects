@@ -9,6 +9,10 @@
 #include <iostream>
 #endif
 
+
+/*
+ * Constructors
+ */
 template <class T>
 BinaryTree<T>::BinaryTree() {
   this->root = NULL;
@@ -31,6 +35,11 @@ BinaryTree<T>::Node::Node(T val, BinaryTree<T>::Node* left, BinaryTree<T>::Node*
   this->right = right;
   this->val = val;
 }
+
+
+/*
+ * Node addition
+ */
 template <class T>
 void BinaryTree<T>::Add(T val_) {
   if (this->root == NULL)
@@ -48,6 +57,11 @@ typename BinaryTree<T>::Node* BinaryTree<T>::Insert(BinaryTree<T>::Node* current
     current->right = Insert(current->right, val);
   return current;
 }
+
+
+/*
+ * Node removal
+ */
 template <class T>
 void BinaryTree<T>::Remove(T val) {
   this->root = Remove(this->root, val);
@@ -92,6 +106,10 @@ typename BinaryTree<T>::Node* BinaryTree<T>::RemoveMinFrom(BinaryTree<T>::Node* 
   return current;
 }
 
+
+/*
+ * Search method
+ */
 template <class T>
 bool BinaryTree<T>::Contains(T val) const {
   return Contains(this->root, val);
@@ -108,6 +126,11 @@ bool BinaryTree<T>::Contains(BinaryTree<T>::Node* current, T val) const {
     return Contains(current->right, val);
   }
 }
+
+
+/*
+ * Top method
+ */
 template <class T>
 T BinaryTree<T>::Top() const {
   if (this->root)
@@ -115,12 +138,69 @@ T BinaryTree<T>::Top() const {
   else
     return NULL;
 }
+
+
+/*
+ * Pop off top method
+ */
 template <class T>
 T BinaryTree<T>::Pop() {
   int ret_val = root->val;
   Remove(ret_val);
   return ret_val;
 }
+
+
+/*
+ * Size and Depth methods
+ */
+template <class T>
+size_t BinaryTree<T>::Size() const {
+  return Size(this->root);
+}
+template <class T>
+size_t BinaryTree<T>::Size(BinaryTree<T>::Node* current) const {
+  if (current == NULL)
+    return 0;
+  else
+    return 1 + Size(current->left) + Size(current->right);
+}
+template <class T>
+size_t BinaryTree<T>::MaxDepth() const {
+  return MaxDepth(this->root, 0);
+}
+template <class T>
+size_t BinaryTree<T>::MaxDepth(BinaryTree<T>::Node* current, size_t curr_depth) const {
+  if (current == NULL)
+    return curr_depth;
+  else {
+    size_t left_depth = MaxDepth(current->left, curr_depth + 1);
+    size_t right_depth = MaxDepth(current->right, curr_depth + 1);
+    return (left_depth > right_depth) ? left_depth : right_depth;
+  }
+}
+template <class T>
+size_t BinaryTree<T>::Depth(T val) const {
+  if (this->root == NULL)
+    return -1;
+  return Depth(this->root, val, 0);
+}
+template <class T>
+size_t BinaryTree<T>::Depth(BinaryTree<T>::Node* current, T val, size_t curr_depth) const {
+  if (current == NULL)
+    return -1;
+  if (current->val == val)
+    return curr_depth;
+  if (current->val > val)
+    return Depth(current->left, val, curr_depth + 1);
+  else
+    return Depth(current->right, val, curr_depth + 1);
+}
+
+
+/*
+ * Print method 
+ */
 template <class T>
 void BinaryTree<T>::Print() const {
   this->PrintInOrder(this->root);
@@ -134,6 +214,11 @@ void BinaryTree<T>::PrintInOrder(BinaryTree<T>::Node* curr) const {
   std::cout << curr->val << std::endl;
   PrintInOrder(curr->right);
 }
+
+
+/*
+ * Print memory locations for top (debugging)
+ */
 template <class T>
 void BinaryTree<T>::PrintTop() const {
   std::cout << "The address of the root is: " << this->root << std::endl;

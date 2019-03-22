@@ -11,31 +11,37 @@
 template <class T>
 class BinaryTree : public Tree<T> {
  public:
-  BinaryTree();
-  void Add(T);
-  void Remove(T);
-  bool Contains(T) const;
-  T Top() const;
-  T Pop();
-  void Print() const;
-  void PrintTop() const;
+  BinaryTree();                             // Default tree constructor
+  void Add(T);                              // Adds a value to the tree
+  void Remove(T);                           // Removes a value from the tree
+  bool Contains(T) const;                   // Searches tree for a value
+  T Top() const;                            // Returns the root's value
+  T Pop();                                  // Pops the root off and returns value
+  size_t Size() const;                      // Returns the number of elements in the tree
+  size_t MaxDepth() const;                  // Returns the maximum depth of a node
+  size_t Depth(T val) const;                // Returns the depth of the node with the specified value
+  void Print() const;                       // Print's the tree's values using an in-order traversal
+  void PrintTop() const;                    // Method to print the top of the tree's references
   class Node {
    public:
-    Node();
-    Node(T val);
-    Node(T val, Node* left_, Node* right_);
+    Node();                                 // Default node constructor
+    Node(T val);                            // Node constructor with only value
+    Node(T val, Node* left_, Node* right_); // Explicit Node constructor
     Node* left;
     Node* right;
     T val;
   };
- private:
+ private:                                   // Helper methods and root
   Node* root;
   Node* Insert(Node*, T);
   Node* Remove(Node*, T);
-  bool Contains(Node*, T) const;
-  void PrintInOrder(Node*) const;
   Node* FindMinFrom(Node* current);
   Node* RemoveMinFrom(Node* current);
+  bool Contains(Node *, T) const;
+  void PrintInOrder(Node *) const;
+  size_t Size(Node*) const;
+  size_t MaxDepth(Node*, size_t) const;
+  size_t Depth(Node*, T, size_t) const;
 };
 #include "../Tree/BinaryTree.cc"
 #endif
