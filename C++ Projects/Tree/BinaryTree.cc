@@ -44,8 +44,7 @@ template <class T>
 void BinaryTree<T>::Add(T val_) {
   if (this->root == NULL)
     this->root = new Node(val_);
-  if (!this->Contains(val_))
-    Insert(this->root, val_);
+  Insert(this->root, val_);
 }
 template <class T>
 typename BinaryTree<T>::Node* BinaryTree<T>::Insert(BinaryTree<T>::Node* current, T val) {

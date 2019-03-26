@@ -18,8 +18,8 @@ class BinaryTree : public Tree<T> {
   T Top() const;                            // Returns the root's value
   T Pop();                                  // Pops the root off and returns value
   size_t Size() const;                      // Returns the number of elements in the tree
-  size_t MaxDepth() const;                  // Returns the maximum depth of a node
-  size_t Depth(T val) const;                // Returns the depth of the node with the specified value
+  size_t MaxDepth() const;                  // Returns the maximum depth of the tree
+  size_t Depth(T) const;                    // Returns the depth of the node with the specified value
   void Print() const;                       // Print's the tree's values using an in-order traversal
   void PrintTop() const;                    // Method to print the top of the tree's references
   class Node {
@@ -33,15 +33,15 @@ class BinaryTree : public Tree<T> {
   };
  private:                                   // Helper methods and root
   Node* root;
-  Node* Insert(Node*, T);
-  Node* Remove(Node*, T);
+  Node* Insert(Node* current, T val);
+  Node* Remove(Node* current, T val);
   Node* FindMinFrom(Node* current);
   Node* RemoveMinFrom(Node* current);
-  bool Contains(Node *, T) const;
-  void PrintInOrder(Node *) const;
-  size_t Size(Node*) const;
-  size_t MaxDepth(Node*, size_t) const;
-  size_t Depth(Node*, T, size_t) const;
+  bool Contains(Node* current, T val) const;
+  void PrintInOrder(Node* current) const;
+  size_t Size(Node* current) const;
+  size_t MaxDepth(Node* current, size_t curr_depth) const;
+  size_t Depth(Node* current, T val, size_t curr_depth) const;
 };
-#include "../Tree/BinaryTree.cc"
+#include "BinaryTree.cc"
 #endif
