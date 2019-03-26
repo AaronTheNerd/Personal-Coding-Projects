@@ -64,7 +64,54 @@ typename DLTree<T>::Node* DLTree<T>::Insert(DLTree<T>::Node* current, DLTree<T>:
  */
 template <class T>
 void DLTree<T>::Remove(T val) {
-  return;
+  this->root = Remove(this->root, val);
+}
+template <class T>
+typename DLTree<T>::Node* DLTree<T>::Remove(DLTree<T>::Node* current, T val) {
+  if (current == NULL)
+    return NULL;
+  if (val < current->val)
+    current->left = Remove(current->left, val);
+  else if (val > current->val)
+    current->right = Remove(current->right, val);
+  else {
+    if (current->right == NULL) {
+      if (current->left != NULL)
+        current->left->parent = current->parent;
+      DLTree<T>::Node* ret = current->left;
+      delete current;
+      return ret;
+    }
+    if (current->left == NULL) {
+      current->right->parent = current->parent;
+      DLTree<T>::Node* ret = current->right;
+      delete current;
+      return ret;
+    }
+    DLTree<T>::Node* temp = new Node(current->val, current->left, current->right, current->parent);
+    current = FindMinFrom(current->right);
+    current->right = RemoveMinFrom(temp->right);
+    current->left = temp->left;
+    delete temp;
+    return current;
+  }
+}
+template <class T>
+typename DLTree<T>::Node* DLTree<T>::FindMinFrom(DLTree<T>::Node* current) const {
+  if (current == NULL)
+    return NULL;
+  if (current->left == NULL)
+    return current;
+  return FindMinFrom(current->left);
+}
+template <class T>
+typename DLTree<T>::Node* DLTree<T>::RemoveMinFrom(DLTree<T>::Node* current) {
+  if (current == NULL)
+    return NULL;
+  if (current->left == NULL)
+    return Remove(current, current->val);
+  current->left = RemoveMinFrom(current->left);
+  return current;
 }
 
 

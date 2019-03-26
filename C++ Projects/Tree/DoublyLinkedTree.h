@@ -38,7 +38,10 @@ class DLTree : public BinaryTree<T> {
 private: // Helper methods and root
   Node* root;
   Node* Insert(Node*, Node*, T);
+  Node* Remove(Node*, T);
   size_t Depth(Node*, T) const;
+  Node* FindMinFrom(Node*) const;
+  Node* RemoveMinFrom(Node*);
 };
 #include "DoublyLinkedTree.cc"
 #endif
