@@ -74,20 +74,26 @@ typename BinaryTree<T>::Node* BinaryTree<T>::Remove(BinaryTree<T>::Node* current
   else if (val > current->val)
     current->right = Remove(current->right, val);
   else {
-    if (current->right == NULL)
-      return current->left;
-    if (current->left == NULL)
-      return current->right;
+    if (current->right == NULL) {
+      BinaryTree<T>::Node* ret = current->left;
+      delete current;
+      return ret;
+    }
+    if (current->left == NULL) {
+      BinaryTree<T>::Node* ret = current->right;
+      delete current;
+      return ret;
+    }
     BinaryTree<T>::Node* temp = new Node(current->val, current->left, current->right);
     current = FindMinFrom(current->right);
     current->right = RemoveMinFrom(temp->right);
     current->left = temp->left;
     delete temp;
+    return current;
   }
-  return current;
 }
 template <class T>
-typename BinaryTree<T>::Node* BinaryTree<T>::FindMinFrom(BinaryTree<T>::Node* current) {
+typename BinaryTree<T>::Node* BinaryTree<T>::FindMinFrom(BinaryTree<T>::Node* current) const {
   if (current == NULL)
     return NULL;
   if (current->left == NULL)
@@ -100,7 +106,7 @@ typename BinaryTree<T>::Node* BinaryTree<T>::RemoveMinFrom(BinaryTree<T>::Node* 
   if (current == NULL)
     return NULL;
   if (current->left == NULL)
-    return current->right;
+    return Remove(current, current->val);
   current->left = RemoveMinFrom(current->left);
   return current;
 }

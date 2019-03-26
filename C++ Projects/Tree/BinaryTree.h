@@ -35,7 +35,7 @@ class BinaryTree : public Tree<T> {
   Node* root;
   Node* Insert(Node* current, T val);
   Node* Remove(Node* current, T val);
-  Node* FindMinFrom(Node* current);
+  Node* FindMinFrom(Node* current) const;
   Node* RemoveMinFrom(Node* current);
   bool Contains(Node* current, T val) const;
   void PrintInOrder(Node* current) const;
