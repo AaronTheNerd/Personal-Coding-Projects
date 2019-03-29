@@ -18,11 +18,12 @@ class Tree {
   virtual size_t Depth(T) const = 0;
   virtual void Print() const = 0;
   virtual void PrintTop() const = 0;
- private:
+ protected:
   class Node {
    public:
     Node();
     Node(T);
+    ~Node();
     T val;
   };
   Node* root;
