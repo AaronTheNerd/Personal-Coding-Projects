@@ -6,6 +6,8 @@
 #include <iostream>
 #include "DoublyLinkedTree.h"
 #endif
+
+
 /*
  * Constructors
  */
@@ -33,6 +35,27 @@ DLTree<T>::Node::Node(T val, DLTree<T>::Node* left, DLTree<T>::Node* right, DLTr
   this->left = left;
   this->right = right;
   this->parent = parent;
+}
+
+
+/*
+ * Destuctor
+ */
+template <class T>
+DLTree<T>::~DLTree() {
+  DestroyTree(this->root);
+}
+template <class T>
+void DLTree<T>::DestroyTree(DLTree<T>::Node* current) {
+  if (current != NULL) {
+    DestroyTree(current->left);
+    DestroyTree(current->right);
+    delete current;
+  }
+}
+template <class T>
+DLTree<T>::Node::~Node() {
+  delete left, right, parent;
 }
 
 
@@ -78,21 +101,16 @@ typename DLTree<T>::Node* DLTree<T>::Remove(DLTree<T>::Node* current, T val) {
     if (current->right == NULL) {
       if (current->left != NULL)
         current->left->parent = current->parent;
-      DLTree<T>::Node* ret = current->left;
-      delete current;
-      return ret;
+      return current->left;
     }
     if (current->left == NULL) {
       current->right->parent = current->parent;
-      DLTree<T>::Node* ret = current->right;
-      delete current;
-      return ret;
+      return current->right;
     }
     DLTree<T>::Node* temp = new Node(current->val, current->left, current->right, current->parent);
     current = FindMinFrom(current->right);
     current->right = RemoveMinFrom(temp->right);
     current->left = temp->left;
-    delete temp;
     return current;
   }
 }
@@ -109,7 +127,7 @@ typename DLTree<T>::Node* DLTree<T>::RemoveMinFrom(DLTree<T>::Node* current) {
   if (current == NULL)
     return NULL;
   if (current->left == NULL)
-    return Remove(current, current->val);
+    return current->right;
   current->left = RemoveMinFrom(current->left);
   return current;
 }
@@ -120,7 +138,7 @@ typename DLTree<T>::Node* DLTree<T>::RemoveMinFrom(DLTree<T>::Node* current) {
  */
 template <class T>
 bool DLTree<T>::Contains(T val) const {
-  return BinaryTree<T>::Contains(val);
+  return BinaryTree<T>::Contains(this->root, val);
 }
 
 
@@ -138,7 +156,9 @@ T DLTree<T>::Top() const {
  */
 template <class T>
 T DLTree<T>::Pop() {
-  return BinaryTree<T>::Pop();
+  if (this->root != NULL)
+    return BinaryTree<T>::Pop();
+  return NULL;
 }
 
 
@@ -181,7 +201,7 @@ size_t DLTree<T>::Depth(DLTree<T>::Node* current, T val) const {
  */
 template <class T>
 void DLTree<T>::Print() const {
-  return BinaryTree<T>::Print();
+  BinaryTree<T>::Print();
 }
 
 

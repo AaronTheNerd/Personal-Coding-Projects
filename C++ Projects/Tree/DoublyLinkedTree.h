@@ -7,9 +7,10 @@
 
 
 template <class T>
-class DLTree : public BinaryTree<T> {
+class DLTree : public BinaryTree {
  public:
   DLTree(); // Default tree constructor
+  ~DLTree();
   void Add(T); // Adds a value to the tree
   void Remove(T); // Removes a value from the tree
   bool Contains(T) const; // Searches tree for a value
@@ -24,19 +25,20 @@ class DLTree : public BinaryTree<T> {
                          // and instead just uses the parent pointer to go to the root
   void Print() const; // Print's the tree's values using an in-order traversal
   void PrintTop() const; // Method to print the top of the tree's references
+ protected:
   class Node {
    public:
      Node(); // Default node constructor
+     ~Node();
      Node(T val); // Node constructor with only value
      Node(T val, Node *left, Node *right, Node *parent); // Explicit Node constructor
      Node *left;
      Node *right;
      Node *parent;
      T val;
-  };
-
-private: // Helper methods and root
+  }; // Helper methods and root
   Node* root;
+  void DestroyTree(Node*);
   Node* Insert(Node*, Node*, T);
   Node* Remove(Node*, T);
   size_t Depth(Node*, T) const;
