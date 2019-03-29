@@ -12,6 +12,7 @@ template <class T>
 class BinaryTree : public Tree<T> {
  public:
   BinaryTree();                             // Default tree constructor
+  ~BinaryTree();                            // Tree destructor
   void Add(T);                              // Adds a value to the tree
   void Remove(T);                           // Removes a value from the tree
   bool Contains(T) const;                   // Searches tree for a value
@@ -22,19 +23,21 @@ class BinaryTree : public Tree<T> {
   size_t Depth(T) const;                    // Returns the depth of the node with the specified value
   void Print() const;                       // Print's the tree's values using an in-order traversal
   void PrintTop() const;                    // Method to print the top of the tree's references
+ protected:
   class Node {
    public:
     Node();                                 // Default node constructor
     Node(T val);                            // Node constructor with only value
     Node(T val, Node* left_, Node* right_); // Explicit Node constructor
+    ~Node();                                // Node destructor
     Node* left;
     Node* right;
     T val;
-  };
- private:                                   // Helper methods and root
+  };                                        // Helper methods and root
   Node* root;
+  void DestroyTree(Node*);
   Node* Insert(Node* current, T val);
-  Node* Remove(Node* current, T val);
+  Node* Remove(Node* current,  T val);
   Node* FindMinFrom(Node* current) const;
   Node* RemoveMinFrom(Node* current);
   bool Contains(Node* current, T val) const;
