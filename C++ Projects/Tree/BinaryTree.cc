@@ -38,6 +38,27 @@ BinaryTree<T>::Node::Node(T val, BinaryTree<T>::Node* left, BinaryTree<T>::Node*
 
 
 /*
+ * Destructor
+ */
+template <class T>
+BinaryTree<T>::~BinaryTree() {
+  DestroyTree(this->root);
+}
+template <class T>
+void BinaryTree<T>::DestroyTree(BinaryTree<T>::Node* current) {
+  if (current != NULL) {
+    DestroyTree(current->left);
+    DestroyTree(current->right);
+    delete current;
+  }
+}
+template <class T>
+BinaryTree<T>::Node::~Node() {
+  delete left, right;
+}
+
+
+/*
  * Node addition
  */
 template <class T>
@@ -75,22 +96,17 @@ typename BinaryTree<T>::Node* BinaryTree<T>::Remove(BinaryTree<T>::Node* current
     current->right = Remove(current->right, val);
   else {
     if (current->right == NULL) {
-      BinaryTree<T>::Node* ret = current->left;
-      delete current;
-      return ret;
+      return current->left;
     }
     if (current->left == NULL) {
-      BinaryTree<T>::Node* ret = current->right;
-      delete current;
-      return ret;
+      return current->right;
     }
     BinaryTree<T>::Node* temp = new Node(current->val, current->left, current->right);
     current = FindMinFrom(current->right);
     current->right = RemoveMinFrom(temp->right);
     current->left = temp->left;
-    delete temp;
-    return current;
   }
+  return current;
 }
 template <class T>
 typename BinaryTree<T>::Node* BinaryTree<T>::FindMinFrom(BinaryTree<T>::Node* current) const {
@@ -106,7 +122,7 @@ typename BinaryTree<T>::Node* BinaryTree<T>::RemoveMinFrom(BinaryTree<T>::Node* 
   if (current == NULL)
     return NULL;
   if (current->left == NULL)
-    return Remove(current, current->val);
+    return current->right;
   current->left = RemoveMinFrom(current->left);
   return current;
 }
@@ -150,9 +166,12 @@ T BinaryTree<T>::Top() const {
  */
 template <class T>
 T BinaryTree<T>::Pop() {
-  int ret_val = root->val;
-  Remove(ret_val);
-  return ret_val;
+  if (this->root != NULL) {
+    int ret_val = root->val;
+    Remove(ret_val);
+    return ret_val;
+  }
+  return NULL;
 }
 
 
@@ -208,7 +227,7 @@ size_t BinaryTree<T>::Depth(BinaryTree<T>::Node* current, T val, size_t curr_dep
  */
 template <class T>
 void BinaryTree<T>::Print() const {
-  this->PrintInOrder(this->root);
+  PrintInOrder(this->root);
   std::cout << std::endl;
 }
 template <class T>
