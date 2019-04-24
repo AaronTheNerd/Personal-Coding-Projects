@@ -3,15 +3,17 @@
 
 #ifndef _PATHFINDING_MAZE_H_
 #define _PATHFINDING_MAZE_H_
-#include "Graph.h"
+#include "Node.h"
+#include <vector>
 #include <string>
-#include <fstream>
-class Maze : public Graph {
+
+
+class Maze {
  public:
-  Maze(std::string, int, int);
-  void ASolve(std::ofstream&);
-  void DijkstraSolve(std::ofstream&);
+  Maze(std::string filename);
  private:
-  void initGraph(const std::ifstream&, int, int);
+  Node* start;
+  Node* end;
+  void AssembleMaze(std::string filename, int x, int y);
 };
 #endif
