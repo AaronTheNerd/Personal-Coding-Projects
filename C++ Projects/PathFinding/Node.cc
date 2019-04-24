@@ -5,8 +5,10 @@
 #define _PATHFINDING_NODE_CC_
 #include "Node.h"
 #endif
+
+
 Node::Node() {
-  neighbors_ = std::vector<Edge>();
+  neighbors_ = std::vector<Node*>();
   x_ = 0;
   y_ = 0;
 }
@@ -15,6 +17,6 @@ Node::Node(int x, int y) {
   x_ = x;
   y_ = y;
 }
-void Node::addEdge(Edge e) {
-  neighbors_.push_back(e);
+void Node::addEdge(Node* n) {
+  neighbors_.push_back(n);
 }

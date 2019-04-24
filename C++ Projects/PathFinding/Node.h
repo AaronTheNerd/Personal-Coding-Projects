@@ -3,19 +3,20 @@
 
 #ifndef _PATHFINDING_NODE_H_
 #define _PATHFINDING_NODE_H_
-#include "Edge.h"
 #include <vector>
+
+
 class Node {
  public:
   Node();
-  Node(int, int);
-  inline std::vector<Edge> getNeighbors() { return neighbors_; }
+  Node(int x, int y);
+  inline std::vector<Node*> getNeighbors() { return neighbors_; }
   inline int getX() { return x_; }
   inline int getY() { return y_; }
-  void addEdge(Edge);
+  void addEdge(Node*);
  private:
   int x_;
   int y_;
-  std::vector<Edge> neighbors_;
+  std::vector<Node*> neighbors_;
 };
 #endif
