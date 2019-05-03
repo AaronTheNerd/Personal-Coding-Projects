@@ -10,11 +10,12 @@ class Node {
  public:
   Node();
   Node(int x, int y);
-  inline std::vector<Node*> getNeighbors() { return neighbors_; }
-  inline int getX() { return x_; }
-  inline int getY() { return y_; }
+  inline std::vector<Node*> getNeighbors() const { return neighbors_; }
+  inline int getX() const { return x_; }
+  inline int getY() const { return y_; }
+  bool operator!=(const Node* n) const;
   void addEdge(Node*);
- private:
+ protected:
   int x_;
   int y_;
   std::vector<Node*> neighbors_;

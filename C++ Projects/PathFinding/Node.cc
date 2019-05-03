@@ -13,10 +13,14 @@ Node::Node() {
   y_ = 0;
 }
 Node::Node(int x, int y) {
-  Node();
+  neighbors_ = std::vector<Node*>();
   x_ = x;
   y_ = y;
 }
 void Node::addEdge(Node* n) {
   neighbors_.push_back(n);
+}
+
+bool Node::operator!=(const Node* n) const {
+  return !(this == n);
 }

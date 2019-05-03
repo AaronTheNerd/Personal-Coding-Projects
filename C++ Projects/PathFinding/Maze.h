@@ -4,6 +4,7 @@
 #ifndef _PATHFINDING_MAZE_H_
 #define _PATHFINDING_MAZE_H_
 #include "Node.h"
+#include "bitmap_image.hpp"
 #include <vector>
 #include <string>
 
@@ -11,9 +12,14 @@
 class Maze {
  public:
   Maze(std::string filename);
- private:
+  void makeImage(std::string filename);
+  void print() const;
   Node* start;
   Node* end;
-  void AssembleMaze(std::string filename, int x, int y);
+  std::vector<std::vector<Node*> > maze;
+ private:
+  void AssembleMaze(bitmap_image filename);
+  bool contained(const int n, const int lower, const int upper) const;
 };
+
 #endif
