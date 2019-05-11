@@ -17,6 +17,7 @@ Maze::Maze(std::string filename) {
   this->start = this->maze[0][0];
   this->start->checkConnections();
   this->end = this->maze[image.width() - 1][image.height() - 1];
+  this->end->checkConnections();
 }
 
 void Maze::AssembleMaze(bitmap_image bitmap) {
@@ -40,7 +41,7 @@ void Maze::AssembleMaze() {
         for (int y_off = -1; y_off <= 1; ++y_off) {
           if (contained(x + x_off, 0, this->width())
               && contained(y + y_off, 0, this->height())
-              && !((x_off == 0) && (y_off == 0))
+              && !(y_off == x_off || y_off == -x_off)
               && this->maze[x + x_off][y + y_off] != NULL) {
             this->maze[x][y]->neighbors_.push_back(this->maze[x + x_off][y + y_off]);
           }
