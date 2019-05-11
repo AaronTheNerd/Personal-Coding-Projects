@@ -23,11 +23,13 @@ void ConstructImage(Maze m, std::vector<Node*> nodes);
 
 int main(int argc, char** argv) {
   Maze m(std::string("maze.bmp"));
+  m.print();
   DepthFirst(m);
-  //m.print();
 }
 
 bool contains(std::vector<Node*>& nodes, Node* n) {
+  if (n == NULL)
+    return false;
   for (size_t i = 0; i < nodes.size(); ++i) {
     if (n == nodes[i])
       return true;
@@ -35,35 +37,42 @@ bool contains(std::vector<Node*>& nodes, Node* n) {
   return false;
 }
 
-void DepthFirstRecursion(Maze m, std::vector<Node*>& nodes, Node* curr) {
-  nodes.push_back(curr);
-  if (curr == m.end)
+void DepthFirstRecursion(Maze m, std::vector<Node*>& path, std::vector<Node*>& checked, Node* curr) {
+  path.push_back(curr);
+  checked.push_back(curr);
+  if (curr == m.end) {
+    std::cout << "The end of the maze was found!" << std::endl;
     return;
-  for (Node* n : curr->getNeighbors()) {
-    if (!contains(nodes, n))
-      DepthFirstRecursion(m, nodes, n);
   }
-  nodes.pop_back();
-  DepthFirstRecursion(m, nodes, nodes.back());
+  for (Node* n : curr->neighbors_) {
+    if (!contains(checked, n)) {
+      return DepthFirstRecursion(m, path, checked, n);
+    }
+  }
+  path.pop_back();
+  return DepthFirstRecursion(m, path, checked, path.back());
 }
 
 void DepthFirst(Maze m) {
-  std::vector<Node*> nodes;
-  DepthFirstRecursion(m, nodes, m.start);
-  ConstructImage(m, nodes);
+  std::vector<Node*> path, checked;
+  DepthFirstRecursion(m, path, checked, m.start);
+  std::cout << "Path nodes" << std::endl;
+  for (Node* n : path)
+    std::cout << n->getX() << ", " << n->getY() << std::endl;
+  ConstructImage(m, path);
 }
 
 void ConstructImage(Maze m, std::vector<Node*> nodes) {
-  bitmap_image image(m.maze.size(), m.maze.size());
-  for (size_t x = 0; x < m.maze.size(); ++x) {
-    for (size_t y = 0; y < m.maze.size(); ++y) {
+  bitmap_image image(m.width(), m.height());
+  for (size_t x = 0; x < m.width(); ++x) {
+    for (size_t y = 0; y < m.height(); ++y) {
       rgb_t color;
-      if (contains(nodes, m.maze[x][y])) {
-        color = make_colour(255, 0, 0);
-      } else if (m.maze[x][y] != NULL) {
-        color = make_colour(255, 255, 255);
-      } else {
+      if (m[x][y] == NULL) {
         color = make_colour(0, 0, 0);
+      } else if (contains(nodes, m[x][y])) {
+        color = make_colour(255, 0, 0);
+      } else {
+        color = make_colour(255, 255, 255);
       }
       image.set_pixel(x, y, color);
     }
