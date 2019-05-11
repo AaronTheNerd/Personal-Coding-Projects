@@ -14,10 +14,12 @@ class Node {
   inline int getX() const { return x_; }
   inline int getY() const { return y_; }
   bool operator!=(const Node* n) const;
-  void addEdge(Node*);
+  bool operator==(const Node* n) const;
+  void setPos(int, int);
+  void checkConnections();
+  std::vector<Node*> neighbors_;
  protected:
   int x_;
   int y_;
-  std::vector<Node*> neighbors_;
 };
 #endif
