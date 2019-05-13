@@ -10,12 +10,14 @@
 
 Node::Node() {
   neighbors_ = std::vector<Node*>();
+  prev = NULL;
   x_ = 0;
   y_ = 0;
 }
 
 Node::Node(int x, int y) {
   neighbors_ = std::vector<Node*>();
+  prev = NULL;
   x_ = x;
   y_ = y;
 }
@@ -28,7 +30,7 @@ void Node::setPos(int x, int y) {
 void Node::checkConnections() {
   std::cout << "The connections of the node at: " << this->x_ << ", " << this->y_ << std::endl;
   for (Node* n : this->neighbors_)
-    std::cout << n << std::endl;
+    std::cout << n->x_ << ", " << n->y_ << std::endl;
 }
 
 bool Node::operator!=(const Node* n) const {

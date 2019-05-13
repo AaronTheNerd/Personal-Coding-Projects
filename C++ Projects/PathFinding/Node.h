@@ -17,6 +17,7 @@ class Node {
   bool operator==(const Node* n) const;
   void setPos(int, int);
   void checkConnections();
+  Node* prev;
   std::vector<Node*> neighbors_;
  protected:
   int x_;
