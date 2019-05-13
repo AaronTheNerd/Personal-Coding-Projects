@@ -4,20 +4,40 @@
 #ifndef _PATHFINDING_MAZE_CC_
 #define _PATHFINDING_MAZE_CC_
 #include "Maze.h"
+#include "maze_generator.h"
 #include "bitmap_image.hpp"
 #include <iostream>
 #include <string>
 #endif
 
+Maze::Maze() {}
 
 Maze::Maze(std::string filename) {
+  std::string name = filename.substr(0, filename.find("."));
   bitmap_image image(filename);
-  this->maze.resize(image.width(), std::vector<Node*>(image.height(), NULL));
+  init(image.width(), image.height(), name, image);
+}
+
+Maze::Maze(int width, int height) {
+  width = width < MINIMAL_SIZE ? MINIMAL_SIZE : width;
+  height = height < MINIMAL_SIZE ? MINIMAL_SIZE : height;
+  bitmap_image image = Generate(width, height, "maze");
+  init(width, height, "maze", image);
+}
+
+Maze::Maze(int width, int height, std::string name) {
+  width = width < MINIMAL_SIZE ? MINIMAL_SIZE : width;
+  height = height < MINIMAL_SIZE ? MINIMAL_SIZE : height;
+  bitmap_image image = Generate(width, height, name);
+  init(width, height, name, image);
+}
+
+void Maze::init(int width, int height, std::string name, bitmap_image image) {
+  this->name = name;
+  this->maze.resize(width, std::vector<Node*>(height, NULL));
   AssembleMaze(image);
   this->start = this->maze[0][0];
-  this->start->checkConnections();
-  this->end = this->maze[image.width() - 1][image.height() - 1];
-  this->end->checkConnections();
+  this->end = this->maze[width - 1][height - 1];
 }
 
 void Maze::AssembleMaze(bitmap_image bitmap) {
