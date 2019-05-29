@@ -96,10 +96,10 @@ void DepthFirst(Maze m) {
     }
     stack.pop();
     checked.push_back(curr);
-    for (Node* n : curr->neighbors_) {
-      if (!contains(checked, n)) {
-        stack.push(n);
-        n->prev = curr;
+    for (Node::Edge e : curr->neighbors_) {
+      if (!contains(checked, e.to)) {
+        stack.push(e.to);
+        e->prev = curr;
       }
     }
   }
