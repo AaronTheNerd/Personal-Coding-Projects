@@ -26,9 +26,14 @@ class Maze {
   static const int MINIMAL_SIZE = 10;
  private:
   void init(int width, int height, std::string name, bitmap_image image);
-  void AssembleMaze(bitmap_image filename);
+  void AssembleMaze(bitmap_image file);
   void AssembleMaze();
+  void TraverseMaze(bitmap_image file);
+  void TraverseMaze(Node* current, bitmap_image file);
   bool contained(const int n, const int lower, const int upper) const;
+  bool isIntersection(bitmap_image file, int x, int y);
+  bool deadEnd(bitmap_image file, int x, int y);
+  bool isCorner(bitmap_image file, int x, int y);
 };
 
 #endif
