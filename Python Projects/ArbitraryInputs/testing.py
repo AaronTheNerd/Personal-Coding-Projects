@@ -129,6 +129,18 @@ class Stats(object):
 
 
 
+class Print(object):
+    @staticmethod
+    def my_print(*stuff, sep=' ', end=''):
+        string = ''
+        for thing in stuff:
+            string += str(thing) + sep
+        string = string.rstrip(sep)
+        string += end
+        print(string)
+
+
+
 def main():
     '''
     Performs tests of all methods in Stats
@@ -145,6 +157,10 @@ def main():
     print("Standard Deviation (Population):", Stats.std_dev_pop(*nums))
     print("Median:", Stats.median(*nums))
     print("3 * 5 * 17 * 343 * 9 =", Stats.product(3, 5, 17, 343, 9))
+    Print.my_print('stuff:', 4, 7, 5, 6)
+    Print.my_print('dog', 'cat', 'yup', 5, sep=' psh ')
+    Print.my_print('there', 'are', '3', 'lines', 'after', 'this', end='\n\n\n')
+
 
 
 if __name__ == "__main__":
