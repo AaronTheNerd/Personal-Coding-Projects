@@ -20,10 +20,10 @@ def get_answers():
 def get_answer():
     global ANSWERS
     if ANSWERS == []:
-        print(ANSWERS[random.randrange(len(ANSWERS))])
-    else:
         if get_answers():
-            get_answer()
+            print(ANSWERS[random.randrange(len(ANSWERS))])
+    else:
+        print(ANSWERS[random.randrange(len(ANSWERS))])
 
 def main():
     global FILE_PATH
@@ -31,7 +31,7 @@ def main():
         print("Concentrate on your Question")
         print("Type 'no' if you no longer need my help")
         print("Type 'idea' if you have a good idea for an answer")
-        text = input("Press enter when ready ")
+        text = input("Press enter when ready to have your question answered: ")
         if text == 'no':
             break
         elif text == 'idea':
