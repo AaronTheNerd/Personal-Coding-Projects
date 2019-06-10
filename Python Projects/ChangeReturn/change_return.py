@@ -44,7 +44,9 @@ def main():
         change = paid - cost
         print("You should get: " + str(round(change, 2)) + " or:")
         change = change_to_cash(change, cash)
-        print(change)
+        for currency, amount in change.items():
+          if amount != 0:
+            print(currency,':',str(amount))
 def change_to_cash(change, cash):
     '''
     This function changes a cash amount to an equivalent amount of change
