@@ -160,6 +160,8 @@ def main():
     Print.my_print('stuff:', 4, 7, 5, 6)
     Print.my_print('dog', 'cat', 'yup', 5, sep=' psh ')
     Print.my_print('there', 'are', '3', 'lines', 'after', 'this', end='\n\n\n')
+    Print.my_print("Here's a list with multiple lines:")
+    Print.my_print('banana', 'apple', 'orange', sep='\n')
 
 
 
