@@ -16,10 +16,13 @@ int main(int argc, char** argv) {
   BST_TESTER bst;
   bst.testBinaryTree(t);
   delete t;
-  std::cout << std::endl << std::endl << "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=" << std::endl << std::endl;
+  std::cout << std::endl << std::endl << "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << std::endl << std::endl;
   t = new DLTree<int>();
   DL_TESTER dl;
   dl.testDLTree(t);
   delete t;
-  std::cout << std::endl << std::endl;
+  std::cout << std::endl << std::endl << "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << std::endl << std::endl;
+  Huffman* huffman = new Huffman();
+  HUFFMAN_TESTER huff;
+  huff.testHuffmanTree(huffman);
 }
