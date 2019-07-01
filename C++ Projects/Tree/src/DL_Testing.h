@@ -82,6 +82,7 @@ struct DL_TESTER {
     }
     std::cout << "The size of the tree is currently: " << t->Size() << std::endl;
     std::cout << "The maximum depth of the tree is currentlty: " << t->MaxDepth() << std::endl;
+    std::cout << "The depth of 12 is " << t->Depth(12) << std::endl;
     std::cout << "Doubly Linked Tree testing has " << (result ? "PASSED" : "FAILED") << std::endl;
     return result;
   }
