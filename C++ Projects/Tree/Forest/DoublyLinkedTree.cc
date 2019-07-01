@@ -99,18 +99,14 @@ typename DLTree<T>::Node* DLTree<T>::Remove(DLTree<T>::Node* current, T val) {
     current->right.to = Remove(current->right.to, val);
   else {
     if (current->right.to == NULL) {
-      if (current->left.to != NULL)
-        current->left->parent.to = current->parent.to;
       return current->left.to;
     }
     if (current->left.to == NULL) {
-      current->right->parent.to = current->parent.to;
       return current->right.to;
     }
-    DLTree<T>::Node* temp = new Node(current->val, current->left, current->right, current->parent);
-    current = FindMinFrom(current->right.to);
-    current->right.to = RemoveMinFrom(temp->right.to);
-    current->left.to = temp->left.to;
+    DLTree<T>::Node* temp = FindMinFrom(current->right.to);
+    current->val = temp->val;
+    current->right.to = Remove(current->right.to, temp->val);
   }
   return current;
 }
@@ -159,7 +155,11 @@ bool DLTree<T>::Contains(DLTree<T>::Node* current, T val) const {
  */
 template <class T>
 T DLTree<T>::Top() const {
-  return root->val;
+  if (this->root)
+    return this->root->val;
+  else
+    return NULL;
+    
 }
 
 
@@ -168,8 +168,11 @@ T DLTree<T>::Top() const {
  */
 template <class T>
 T DLTree<T>::Pop() {
-  if (this->root != NULL)
-    return Top();
+  if (this->root != NULL) {
+    T ret_val = this->root->val;
+    Remove(ret_val);
+    return ret_val;
+  }
   return NULL;
 }
 
@@ -179,11 +182,29 @@ T DLTree<T>::Pop() {
  */
 template <class T>
 unsigned int DLTree<T>::Size() const {
-  return 0;
+  return Size(this->root);
+}
+template <class T>
+unsigned int DLTree<T>::Size(DLTree<T>::Node* current) const {
+  if (current == NULL)
+    return 0;
+  else
+    return 1 + Size(current->left.to) + Size(current->right.to);
+  
 }
 template <class T>
 unsigned int DLTree<T>::MaxDepth() const {
-  return 0;
+  return MaxDepth(this->root, 0);
+}
+template <class T>
+unsigned int DLTree<T>::MaxDepth(DLTree<T>::Node* current, unsigned int curr_depth) const {
+  if (current == NULL)
+    return curr_depth;
+  else {
+    unsigned int left_depth = MaxDepth(current->left.to, curr_depth + 1);
+    unsigned int right_depth = MaxDepth(current->right.to, curr_depth + 1);
+    return (left_depth > right_depth) ? left_depth : right_depth;
+  }
 }
 template <class T>
 unsigned int DLTree<T>::Depth(T val) const {
@@ -218,6 +239,8 @@ void DLTree<T>::Print() const {
 }
 template <class T>
 void DLTree<T>::PrintInOrder(DLTree<T>::Node* current) const {
+  if (current == NULL)
+    return;
   PrintInOrder(current->left.to);
   std::cout << current->val << std::endl;
   PrintInOrder(current->right.to);
@@ -248,5 +271,5 @@ void DLTree<T>::PrintTop() const {
   } else {
     std::cout << "  The right child is NULL" << std::endl;
   }
-  std::cout << "stuff" << std::endl;
+  std::cout << std::endl;
 }
