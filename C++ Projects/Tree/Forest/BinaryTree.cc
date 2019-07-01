@@ -157,7 +157,7 @@ T BinaryTree<T>::Top() const {
 template <class T>
 T BinaryTree<T>::Pop() {
   if (this->root != NULL) {
-    int ret_val = this->root->val;
+    T ret_val = this->root->val;
     Remove(ret_val);
     return ret_val;
   }
@@ -253,5 +253,5 @@ void BinaryTree<T>::PrintTop() const {
   } else {
     std::cout << "  The right child is NULL" << std::endl;
   }
-  std::cout << "Stuff" << std::endl;
+  std::cout << std::endl;
 }
