@@ -3,11 +3,13 @@
 // I know that the name 'binary tree' does not imply
 // binary search tree but that is what this is.
 
-#ifndef _TREE_BINARY_TREE_CC_
-#define _TREE_BINARY_TREE_CC_
+#ifndef _FOREST_BINARY_TREE_CC_
+#define _FOREST_BINARY_TREE_CC_
 #include <iostream>
+#include "Tree.h"
 #include "BinaryTree.h"
 #endif
+
 
 /*
  * Constructors
@@ -17,19 +19,19 @@ BinaryTree<T>::BinaryTree() {
   this->root = NULL;
 }
 template <class T>
-BinaryTree<T>::Node::Node() {
+BinaryTree<T>::BSTNode::BSTNode() {
   this->val = 0;
   this->left = NULL;
   this->right = NULL;
 }
 template <class T>
-BinaryTree<T>::Node::Node(T val) {
+BinaryTree<T>::BSTNode::BSTNode(T val) {
   this->left = NULL;
   this->right = NULL;
   this->val = val;
 }
 template <class T>
-BinaryTree<T>::Node::Node(T val, BinaryTree<T>::Node::Edge left, BinaryTree<T>::Node::Edge right) {
+BinaryTree<T>::BSTNode::BSTNode(T val, BSTEdge left, BSTEdge right) {
   this->left = left;
   this->right = right;
   this->val = val;
@@ -44,7 +46,7 @@ BinaryTree<T>::~BinaryTree() {
   DestroyTree(this->root);
 }
 template <class T>
-void BinaryTree<T>::DestroyTree(BinaryTree<T>::Node* current) {
+void BinaryTree<T>::DestroyTree(BinaryTree<T>::BSTNode* current) {
   if (current != NULL) {
     DestroyTree(current->left.to);
     DestroyTree(current->right.to);
@@ -52,7 +54,7 @@ void BinaryTree<T>::DestroyTree(BinaryTree<T>::Node* current) {
   }
 }
 template <class T>
-BinaryTree<T>::Node::~Node() {
+BinaryTree<T>::BSTNode::~BSTNode() {
   this->left = NULL;
   this->right = NULL;
 }
@@ -64,13 +66,13 @@ BinaryTree<T>::Node::~Node() {
 template <class T>
 void BinaryTree<T>::Add(T val_) {
   if (this->root == NULL)
-    this->root = new Node(val_);
+    this->root = new BSTNode(val_);
   Insert(this->root, val_);
 }
 template <class T>
-typename BinaryTree<T>::Node* BinaryTree<T>::Insert(BinaryTree<T>::Node* current, T val) {
+typename BinaryTree<T>::BSTNode* BinaryTree<T>::Insert(BinaryTree<T>::BSTNode* current, T val) {
   if (current == NULL)
-    current = new Node(val);
+    current = new BSTNode(val);
   else if (val < current->val)
     current->left.to = Insert(current->left.to, val);
   else if (val > current->val)
@@ -87,7 +89,7 @@ void BinaryTree<T>::Remove(T val) {
   this->root = Remove(this->root, val);
 }
 template <class T>
-typename BinaryTree<T>::Node* BinaryTree<T>::Remove(BinaryTree<T>::Node* current, T val) {
+typename BinaryTree<T>::BSTNode* BinaryTree<T>::Remove(BinaryTree<T>::BSTNode* current, T val) {
   if (current == NULL)
     return NULL;
   if (val < current->val)
@@ -101,14 +103,14 @@ typename BinaryTree<T>::Node* BinaryTree<T>::Remove(BinaryTree<T>::Node* current
     if (current->left.to == NULL) {
       return current->right.to;
     }
-    BinaryTree<T>::Node* temp = FindMinFrom(current->right.to);
+    BinaryTree<T>::BSTNode* temp = FindMinFrom(current->right.to);
     current->val = temp->val;
     current->right.to = Remove(current->right.to, temp->val);
   }
   return current;
 }
 template <class T>
-typename BinaryTree<T>::Node* BinaryTree<T>::FindMinFrom(BinaryTree<T>::Node* current) const {
+typename BinaryTree<T>::BSTNode* BinaryTree<T>::FindMinFrom(BinaryTree<T>::BSTNode* current) const {
   if (current == NULL)
     return NULL;
   if (current->left.to == NULL)
@@ -126,7 +128,7 @@ bool BinaryTree<T>::Contains(T val) const {
   return Contains(this->root, val);
 }
 template <class T>
-bool BinaryTree<T>::Contains(BinaryTree<T>::Node* current, T val) const {
+bool BinaryTree<T>::Contains(BinaryTree<T>::BSTNode* current, T val) const {
   if (current == NULL)
     return false;
   if (current->val == val) {
@@ -173,7 +175,7 @@ unsigned int BinaryTree<T>::Size() const {
   return Size(this->root);
 }
 template <class T>
-unsigned int BinaryTree<T>::Size(BinaryTree<T>::Node* current) const {
+unsigned int BinaryTree<T>::Size(BinaryTree<T>::BSTNode* current) const {
   if (current == NULL)
     return 0;
   else
@@ -184,7 +186,7 @@ unsigned int BinaryTree<T>::MaxDepth() const {
   return MaxDepth(this->root, 0);
 }
 template <class T>
-unsigned int BinaryTree<T>::MaxDepth(BinaryTree<T>::Node* current, unsigned int curr_depth) const {
+unsigned int BinaryTree<T>::MaxDepth(BinaryTree<T>::BSTNode* current, unsigned int curr_depth) const {
   if (current == NULL)
     return curr_depth;
   else {
@@ -200,7 +202,7 @@ unsigned int BinaryTree<T>::Depth(T val) const {
   return Depth(this->root, val, 0);
 }
 template <class T>
-unsigned int BinaryTree<T>::Depth(BinaryTree<T>::Node* current, T val, unsigned int curr_depth) const {
+unsigned int BinaryTree<T>::Depth(BinaryTree<T>::BSTNode* current, T val, unsigned int curr_depth) const {
   if (current == NULL)
     return -1;
   if (current->val == val)
@@ -221,7 +223,7 @@ void BinaryTree<T>::Print() const {
   std::cout << std::endl;
 }
 template <class T>
-void BinaryTree<T>::PrintInOrder(BinaryTree<T>::Node* curr) const {
+void BinaryTree<T>::PrintInOrder(BinaryTree<T>::BSTNode* curr) const {
   if (curr == NULL)
     return;
   PrintInOrder(curr->left.to);

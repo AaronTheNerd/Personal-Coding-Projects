@@ -1,9 +1,10 @@
 // Written by Aaron Barge
 // Copyright 2019
 
-#ifndef _TREE_DOUBLY_LINKED_TREE_CC_
-#define _TREE_DOUBLY_LINKED_TREE_CC_
+#ifndef _FOREST_DOUBLY_LINKED_TREE_CC_
+#define _FOREST_DOUBLY_LINKED_TREE_CC_
 #include <iostream>
+#include "BinaryTree.h"
 #include "DoublyLinkedTree.h"
 #endif
 
@@ -16,21 +17,21 @@ DLTree<T>::DLTree() {
   this->root = NULL;
 }
 template <class T>
-DLTree<T>::Node::Node() {
+DLTree<T>::DLNode::DLNode() {
   this->val = NULL;
   this->left = NULL;
   this->right = NULL;
   this->parent = NULL;
 }
 template <class T>
-DLTree<T>::Node::Node(T val) {
+DLTree<T>::DLNode::DLNode(T val) {
   this->val = val;
   this->left = NULL;
   this->right = NULL;
   this->parent = NULL;
 }
 template <class T>
-DLTree<T>::Node::Node(T val, DLTree<T>::Node::Edge left, DLTree<T>::Node::Edge right, DLTree<T>::Node::Edge parent) {
+DLTree<T>::DLNode::DLNode(T val, DLEdge left, DLEdge right, DLEdge parent) {
   this->val = val;
   this->left = left;
   this->right = right;
@@ -46,7 +47,7 @@ DLTree<T>::~DLTree() {
   DestroyTree(this->root);
 }
 template <class T>
-void DLTree<T>::DestroyTree(DLTree<T>::Node* current) {
+void DLTree<T>::DestroyTree(DLTree<T>::DLNode* current) {
   if (current != NULL) {
     DestroyTree(current->left.to);
     DestroyTree(current->right.to);
@@ -54,8 +55,8 @@ void DLTree<T>::DestroyTree(DLTree<T>::Node* current) {
   }
 }
 template <class T>
-DLTree<T>::Node::~Node() {
-  left = right = parent = NULL;
+DLTree<T>::DLNode::~DLNode() {
+  this->left = this->right = this->parent = NULL;
 }
 
 
@@ -65,13 +66,13 @@ DLTree<T>::Node::~Node() {
 template <class T>
 void DLTree<T>::Add(T val) {
   if (this->root == NULL)
-    this->root = new Node(val);
+    this->root = new DLNode(val);
   Insert(this->root, NULL, val);
 }
 template <class T>
-typename DLTree<T>::Node* DLTree<T>::Insert(DLTree<T>::Node* current, DLTree<T>::Node* previous, T val) {
+typename DLTree<T>::DLNode* DLTree<T>::Insert(DLTree<T>::DLNode* current, DLTree<T>::DLNode* previous, T val) {
   if (current == NULL) {
-    current = new Node(val);
+    current = new DLNode(val);
     current->parent.to = previous;
   } else if (val < current->val) {
     current->left.to = Insert(current->left.to, current, val);
@@ -90,7 +91,7 @@ void DLTree<T>::Remove(T val) {
   this->root = Remove(this->root, val);
 }
 template <class T>
-typename DLTree<T>::Node* DLTree<T>::Remove(DLTree<T>::Node* current, T val) {
+typename DLTree<T>::DLNode* DLTree<T>::Remove(DLTree<T>::DLNode* current, T val) {
   if (current == NULL)
     return NULL;
   if (val < current->val)
@@ -104,14 +105,14 @@ typename DLTree<T>::Node* DLTree<T>::Remove(DLTree<T>::Node* current, T val) {
     if (current->left.to == NULL) {
       return current->right.to;
     }
-    DLTree<T>::Node* temp = FindMinFrom(current->right.to);
+    DLTree<T>::DLNode* temp = FindMinFrom(current->right.to);
     current->val = temp->val;
     current->right.to = Remove(current->right.to, temp->val);
   }
   return current;
 }
 template <class T>
-typename DLTree<T>::Node* DLTree<T>::FindMinFrom(DLTree<T>::Node* current) const {
+typename DLTree<T>::DLNode* DLTree<T>::FindMinFrom(DLTree<T>::DLNode* current) const {
   if (current == NULL)
     return NULL;
   if (current->left.to == NULL)
@@ -119,7 +120,7 @@ typename DLTree<T>::Node* DLTree<T>::FindMinFrom(DLTree<T>::Node* current) const
   return FindMinFrom(current->left.to);
 }
 template <class T>
-typename DLTree<T>::Node* DLTree<T>::RemoveMinFrom(DLTree<T>::Node* current) {
+typename DLTree<T>::DLNode* DLTree<T>::RemoveMinFrom(DLTree<T>::DLNode* current) {
   if (current == NULL)
     return NULL;
   if (current->left.to == NULL)
@@ -137,7 +138,7 @@ bool DLTree<T>::Contains(T val) const {
   return Contains(this->root, val);
 }
 template <class T>
-bool DLTree<T>::Contains(DLTree<T>::Node* current, T val) const {
+bool DLTree<T>::Contains(DLTree<T>::DLNode* current, T val) const {
   if (current == NULL) {
     return false;
   } else if (current->val == val) {
@@ -185,7 +186,7 @@ unsigned int DLTree<T>::Size() const {
   return Size(this->root);
 }
 template <class T>
-unsigned int DLTree<T>::Size(DLTree<T>::Node* current) const {
+unsigned int DLTree<T>::Size(DLTree<T>::DLNode* current) const {
   if (current == NULL)
     return 0;
   else
@@ -197,7 +198,7 @@ unsigned int DLTree<T>::MaxDepth() const {
   return MaxDepth(this->root, 0);
 }
 template <class T>
-unsigned int DLTree<T>::MaxDepth(DLTree<T>::Node* current, unsigned int curr_depth) const {
+unsigned int DLTree<T>::MaxDepth(DLTree<T>::DLNode* current, unsigned int curr_depth) const {
   if (current == NULL)
     return curr_depth;
   else {
@@ -213,7 +214,7 @@ unsigned int DLTree<T>::Depth(T val) const {
   return Depth(this->root, val);
 }
 template <class T>
-unsigned int DLTree<T>::Depth(DLTree<T>::Node* current, T val) const {
+unsigned int DLTree<T>::Depth(DLTree<T>::DLNode* current, T val) const {
   if (this->root == NULL)
     return 0;
   if (current->val < val)
@@ -238,7 +239,7 @@ void DLTree<T>::Print() const {
   std::cout << std::endl << std::endl;
 }
 template <class T>
-void DLTree<T>::PrintInOrder(DLTree<T>::Node* current) const {
+void DLTree<T>::PrintInOrder(DLTree<T>::DLNode* current) const {
   if (current == NULL)
     return;
   PrintInOrder(current->left.to);

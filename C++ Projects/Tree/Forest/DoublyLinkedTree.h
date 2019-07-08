@@ -7,7 +7,7 @@
 
 
 template <class T>
-class DLTree : public Tree<T> {
+class DLTree : public BinaryTree<T> {
  public:
   DLTree();                      // Default tree constructor
   ~DLTree();                     // Tree desturctor
@@ -26,37 +26,26 @@ class DLTree : public Tree<T> {
   void Print() const;            // Print's the tree's values using an in-order traversal
   void PrintTop() const;         // Method to print the top of the tree's references
  protected:
-  class Node {
+  class DLNode : public BinaryTree<T>::BSTNode {
    public:
-    class Edge {
-     public:
-      Node* to;
-      Edge() { to = NULL; }
-      Edge(Node* to_) { to = to_; }
-      ~Edge() { delete(to); }
-      Node* operator->() { return to; }
-      Node& operator*() { return *to; }
-    };
-    Node();                      // Default node constructor
-    Node(T);                     // Node constructor with only value
-    Node(T, Edge, Edge, Edge);   // Explicit Node constructor
-    ~Node();                     // Node destructor
-    Edge left;
-    Edge right;
-    Edge parent;
-    T val;
+    typedef typename Tree<T>::template Edge<DLNode> DLEdge;
+    DLNode();                      // Default node constructor
+    DLNode(T);                     // Node constructor with only value
+    DLNode(T, DLEdge, DLEdge, DLEdge);   // Explicit Node constructor
+    ~DLNode();                     // Node destructor
+    DLEdge parent;
   };                             // Helper methods and root
-  Node* root;
-  void DestroyTree(Node*);
-  Node* Insert(Node*, Node*, T);
-  Node* Remove(Node*, T);
-  bool Contains(Node*, T) const;
-  unsigned int Depth(Node*, T) const;
-  Node* FindMinFrom(Node*) const;
-  Node* RemoveMinFrom(Node*);
-  unsigned int Size(Node*) const;
-  unsigned int MaxDepth(Node*, unsigned int) const;
-  void PrintInOrder(Node*) const;
+  DLNode* root;
+  void DestroyTree(DLNode*);
+  DLNode* Insert(DLNode*, DLNode*, T);
+  DLNode* Remove(DLNode*, T);
+  bool Contains(DLNode*, T) const;
+  unsigned int Depth(DLNode*, T) const;
+  DLNode* FindMinFrom(DLNode*) const;
+  DLNode* RemoveMinFrom(DLNode*);
+  unsigned int Size(DLNode*) const;
+  unsigned int MaxDepth(DLNode*, unsigned int) const;
+  void PrintInOrder(DLNode*) const;
 };
 #include "DoublyLinkedTree.cc"
 #endif
