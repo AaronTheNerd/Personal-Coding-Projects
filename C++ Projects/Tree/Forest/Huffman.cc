@@ -2,8 +2,8 @@
 // Copyright 2019
 
 
-#ifndef _TREE_HUFFMAN_TREE_CC_
-#define _TREE_HUFFMAN_TREE_CC_
+#ifndef _FOREST_HUFFMAN_TREE_CC_
+#define _FOREST_HUFFMAN_TREE_CC_
 #include <iostream>
 #include <string>
 #include <queue>
@@ -104,23 +104,20 @@ void Huffman::GetCodes(Huffman::Node* curr, std::string curr_code) {
 
 
 /*
- * Node removal
+ * Searching
  */
-void Huffman::Remove(std::string character) {
-  return;
-}
 bool Huffman::Contains(std::string character) const {
   return Contains(this->root, character);
 }
 bool Huffman::Contains(Huffman::Node* current, std::string character) const {
-  if (current == NULL)
+  if (current == NULL) {
     return false;
-  if (current->character == character) {
+  } else if (current->left.to == NULL && current->right.to == NULL && current->character == character) {
     return true;
-  } else if (character < current->character) {
-    return Contains(current->left.to, character);
   } else {
-    return Contains(current->right.to, character);
+    bool left_true = this->Contains(current->left.to, character);
+    bool right_true = this->Contains(current->right.to, character);
+    return left_true || right_true;
   }
 }
 
@@ -133,14 +130,6 @@ std::string Huffman::Top() const {
     return this->root->character;
   else
     return NULL;
-}
-
-
-/*
- * Pop off top method
- */
-std::string Huffman::Pop() {
-  return NULL;
 }
 
 
@@ -183,18 +172,48 @@ unsigned int Huffman::Depth(Huffman::Node* current, std::string character, unsig
  * Encoding
  */
 std::string Huffman::Encode() const {
-
+  std::string encoded_text = std::string("");
+  for (unsigned int i = 0; i < this->text.size(); ++i) {
+    std::string character = this->text[i] + std::string("");
+    std::string code = this->GetCodeOf(character);
+    encoded_text += (code == std::string("")) ? ("Failed") : (code);
+  }
+  return encoded_text;
 }
 std::string Huffman::GetCodeOf(std::string character) const {
-  
+  return this->GetCodeOf(this->root, character);
+}
+std::string Huffman::GetCodeOf(Huffman::Node* curr, std::string character) const {
+  if (curr == NULL) {
+    return std::string("");
+  } else if (curr->left.to == NULL && curr->right.to == NULL && curr->character == character) {
+    return curr->code;
+  } else {
+    std::string left_code = GetCodeOf(curr->left.to, character);
+    std::string right_code = GetCodeOf(curr->right.to, character);
+    return (left_code == std::string("") && right_code == std::string("")) ? (std::string("")) : ((left_code == std::string("")) ? (right_code) : (left_code));
+  }
 }
 
 
 /*
  * Decoding
  */
-std::string Huffman::Decode(std::string) const {
-
+std::string Huffman::Decode(std::string encoded_text) const {
+  Huffman::Node* curr = this->root;
+  std::string decoded_text = std::string("");
+  for (unsigned int i = 0; i < encoded_text.size(); ++i) {
+    if (curr == NULL) {
+      curr = this->root;
+    } else {
+      curr = (encoded_text[i] + std::string("") == "1") ? (curr->left.to) : (curr->right.to); 
+      if (curr->left.to == NULL && curr->right.to == NULL) {
+        decoded_text += curr->character;
+        curr = this->root;
+      }
+    }
+  }
+  return decoded_text;
 }
 
 
