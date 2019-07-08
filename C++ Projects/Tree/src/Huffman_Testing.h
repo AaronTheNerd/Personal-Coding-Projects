@@ -25,6 +25,11 @@ struct HUFFMAN_TESTER {
     std::cout << "The size of the tree is currently: " << t->Size() << std::endl;
     std::cout << "The maximum depth of the tree is currentlty: " << t->MaxDepth() << std::endl;
     t->Print();
+    std::string encoded_text = t->Encode();
+    std::cout << "Encoded text:" << encoded_text << std::endl;
+    std::cout << "Decoded text:" << t->Decode(encoded_text) << std::endl;
+    std::cout << "Entire character set:" << t->Top() << std::endl;
+    std::cout << "Testing contains a contained character" << (t->Contains("f") ? "PASSED" : "FAILED") << std::endl;
     std::cout << "Huffman Tree testing has " << (result ? "PASSED" : "FAILED") << std::endl;
     return result;
   }
