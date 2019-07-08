@@ -1,8 +1,8 @@
 // Written by Aaron Barge
 // Copyright 2019
 
-#ifndef _TREE_H_
-#define _TREE_H_
+#ifndef _FOREST_TREE_H_
+#define _FOREST_TREE_H_
 
 
 template <class T>
@@ -19,11 +19,18 @@ class Tree {
   virtual void Print() const = 0;
   virtual void PrintTop() const = 0;
  protected:
+  template <typename N>
+  class Edge {
+   public:
+    N* to;
+    Edge() { to = NULL; }
+    Edge(N* to_) { to = to_; }
+    ~Edge() { delete(to); }
+    N* operator->() { return to; }
+    N& operator*() { return *to; }
+  };
   class Node {
    public:
-    Node();
-    Node(T);
-    ~Node();
     T val;
   };
   Node* root;
