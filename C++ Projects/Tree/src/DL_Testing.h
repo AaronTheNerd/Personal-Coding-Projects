@@ -72,6 +72,7 @@ struct DL_TESTER {
     std::cout << "The maximum depth of the tree is currentlty: " << t->MaxDepth() << std::endl;
     std::cout << "Popping off root" << std::endl;
     int old_root = t->Pop();
+    std::cout << "Old root: " << old_root << std::endl;
     t->Print();
     std::cout << "Making sure root was removed successfully" << std::endl;
     if (t->Contains(old_root)) {

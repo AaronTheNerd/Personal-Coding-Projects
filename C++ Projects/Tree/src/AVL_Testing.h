@@ -150,7 +150,7 @@ struct AVL_TESTER {
       std::cout << "An unknown error occured with Pop()" << std::endl;
       return false;
     }
-    std::cout << "Making sure root was removed successfully" << std::endl;
+    std::cout << "Making sure " << old_root << " was removed successfully" << std::endl;
     if (t->Contains(old_root)) {
       std::cout << "Value removal was unsuccessful" << std::endl
                 << "  Expected: " << false << std::endl
