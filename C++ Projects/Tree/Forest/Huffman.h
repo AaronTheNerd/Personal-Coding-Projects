@@ -53,6 +53,7 @@ class Huffman {
     bool operator() (const Node& n1, const Node& n2) const;
   };
   Node* root;
+ private:
   std::map<std::string, int> char_freqs;
   std::string text;
   void DestroyTree(Node*);
