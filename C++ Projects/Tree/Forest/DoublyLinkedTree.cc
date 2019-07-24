@@ -4,7 +4,6 @@
 #ifndef _FOREST_DOUBLY_LINKED_TREE_CC_
 #define _FOREST_DOUBLY_LINKED_TREE_CC_
 #include <iostream>
-#include "BinaryTree.h"
 #include "DoublyLinkedTree.h"
 #endif
 
@@ -56,7 +55,9 @@ void DLTree<T>::DestroyTree(DLTree<T>::DLNode* current) {
 }
 template <class T>
 DLTree<T>::DLNode::~DLNode() {
-  this->left = this->right = this->parent = NULL;
+  this->left = NULL;
+  this->right = NULL;
+  this->parent = NULL;
 }
 
 

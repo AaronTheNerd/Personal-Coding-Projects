@@ -33,7 +33,7 @@ class DLTree : public BinaryTree<T> {
     DLNode(T);                     // Node constructor with only value
     DLNode(T, DLEdge, DLEdge, DLEdge);   // Explicit Node constructor
     ~DLNode();                     // Node destructor
-    DLEdge parent;
+    DLEdge parent, left, right;
   };                             // Helper methods and root
   DLNode* root;
   void DestroyTree(DLNode*);
