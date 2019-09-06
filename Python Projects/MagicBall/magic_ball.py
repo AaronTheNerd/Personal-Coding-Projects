@@ -3,7 +3,7 @@
 import random
 import os
 ANSWERS = []
-FILE_PATH = os.path.abspath(__file__) + "/../Answers.txt"
+FILE_PATH = '/mnt/c/Users/AaronTheNerd/Documents/Personal-Coding-Projects/Python Projects/MagicBall/Answers.txt'
 def get_answers():
     global FILE_PATH
     global ANSWERS
@@ -27,6 +27,7 @@ def get_answer():
 
 def main():
     global FILE_PATH
+    print(os.path.abspath(__file__))
     while True:
         print("Concentrate on your Question")
         print("Type 'no' if you no longer need my help")
