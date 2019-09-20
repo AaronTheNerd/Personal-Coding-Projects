@@ -1,12 +1,11 @@
 # Aaron Barge's Personal Coding Projects
 
 This is where I get to work on my programming skills and show them to the world.
-Obviously, my main language is currently Java.
-However, I am trying to branch out into C++, MatLab, and Python.
+Obviously, my main language is currently C++.
+However, I am trying to branch out into MatLab and Python.
 Maybe some C# or SQL on the way.
 
 Feel free to contact me about any comments, possible improvements, or errors.
-Be gentle.
 I hope you enjoy your stay.
 
 ## Acknowledgments
