@@ -69,21 +69,21 @@ void AVLTree<T>::Add(T val) {
     this->root = new AVLNode(val);
   std::string path = std::string("");
   this->Insert(this->root, NULL, val, path);
+  if (path.size() < 3)
+    return;
   bool unbalanced = this->CheckWeights();
   if (unbalanced) {
     AVLTree<T>::AVLNode* new_node = this->GetNode(path);
     AVLTree<T>::AVLNode* unbalanced_node = this->GetUnbalanced(new_node);
     std::string last_moves = path.substr(path.size() - 2, 2);
     if (last_moves == "11") {
-      this->Left(unbalanced_node);
+      this->LeftLeft(unbalanced_node);
     } else if (last_moves == "00") {
-      this->Right(unbalanced_node);
+      this->RightRight(unbalanced_node);
     } else if (last_moves == "10") {
-      this->Left(unbalanced_node);
-      this->Right(unbalanced_node->parent.to);
+      this->LeftRight(unbalanced_node);
     } else {
-      this->Right(unbalanced_node);
-      this->Left(unbalanced_node->parent.to);
+      this->RightLeft(unbalanced_node);
     }
   }
 }
@@ -112,7 +112,7 @@ bool AVLTree<T>::CheckWeights(AVLTree<T>::AVLNode* current) {
   } else if (current->left.to == NULL && current->right.to == NULL) {
     current->weight = 0;
   } else {
-    current->weight = this->Size(current->left.to) - this->Size(current->left.to);
+    current->weight = this->MaxDepth(current->left.to, 0) - this->MaxDepth(current->right.to, 0);
     if (current->weight > 1 || current->weight < -1) {
       this->CheckWeights(current->left.to);
       this->CheckWeights(current->right.to);
@@ -145,12 +145,36 @@ typename AVLTree<T>::AVLNode* AVLTree<T>::GetUnbalanced(AVLTree<T>::AVLNode* cur
   return curr;
 }
 template <class T>
-void AVLTree<T>::Left(AVLTree<T>::AVLNode* a) {
-  return;
+typename AVLTree<T>::AVLNode* AVLTree<T>::LeftLeft(AVLTree<T>::AVLNode* a) {
+  AVLTree<T>::AVLNode* t;
+  t = a->left.to;
+  a->left.to = t->right.to;
+  t->right.to = a;
+  std::cout << "Left Rotation" << std::endl;
+  return t;
 };
 template <class T>
-void AVLTree<T>::Right(AVLTree<T>::AVLNode* a) {
-  return;
+typename AVLTree<T>::AVLNode* AVLTree<T>::RightRight(AVLTree<T>::AVLNode* a) {
+  AVLTree<T>::AVLNode* t;
+  t = a->right.to;
+  a->right.to = t->left.to;
+  t->left.to = a;
+  std::cout << "Right Rotation" << std::endl;
+  return t;
+}
+template <class T>
+void AVLTree<T>::RightLeft(AVLTree<T>::AVLNode* a) {
+  AVLTree<T>::AVLNode* t;
+  t = a->right.to;
+  a->right.to = this->LeftLeft(t);
+  this->RightRight(a);
+}
+template <class T>
+void AVLTree<T>::LeftRight(AVLTree<T>::AVLNode* a) {
+  AVLTree<T>::AVLNode* t;
+  t = a->left.to;
+  a->left.to = this->RightRight(t);
+  this->LeftLeft(a);
 }
 
 

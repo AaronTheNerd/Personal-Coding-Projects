@@ -39,8 +39,10 @@ class AVLTree : public DLTree<T> {
   bool CheckWeights(AVLNode*);
   AVLNode* GetNode(std::string) const;
   AVLNode* GetUnbalanced(AVLNode*) const;
-  void Left(AVLNode*);
-  void Right(AVLNode*);
+  AVLNode* LeftLeft(AVLNode*);
+  AVLNode* RightRight(AVLNode*);
+  void RightLeft(AVLNode*);
+  void LeftRight(AVLNode*);
   AVLNode* Insert(AVLNode*, AVLNode*, T, std::string&);
   AVLNode* Remove(AVLNode*, T);
   AVLNode* FindMinFrom(AVLNode*) const;

@@ -8,7 +8,7 @@
 // You must make sure that the upper-left and bottom-right
 // pixels are both white
 // Or can randomly generate a maze based off of given dimensions
-// and/or a file name without the extension
+// and an optional file name without the extension
 // Uses:
 //   Input:
 //     ./<executable> <bitmap_maze>.bmp
@@ -32,24 +32,27 @@
 #include <queue>
 #include <stack>
 #include <vector>
+#include <cmath>
 
 void DepthFirst(Maze m);
 void Djikstra(Maze m);
 void AStar(Maze m);
 std::vector<Node*> DecodePath(Maze m);
 void ConstructImage(Maze m, std::vector<Node*> path, std::string name);
+int to_int(std::string num);
 
 int main(int argc, char** argv) {
   Maze m;
+  int width, height;
   switch (argc) {
     case 2:
       m = Maze(argv[1]);
       break;
     case 3:
-      int width, height;
       try {
-        width = int(argv[1]);
-        height = int(argv[2]);
+        std::string argv_1(argv[1]), argv_2(argv[2]);
+        width = to_int(argv_1);
+        height = to_int(argv_2);
       } catch (...) {
         std::cout << "Please enter valid integer dimensions" << std::endl;
         return 0;
@@ -57,10 +60,9 @@ int main(int argc, char** argv) {
       m = Maze(width, height);
       break;
     case 4:
-      int width, height;
       try {
-        width = int(argv[1]);
-        height = int(argv[2]);
+        width = to_int(argv[1]);
+        height = to_int(argv[2]);
       } catch (...) {
         std::cout << "Please enter valid integer dimensions" << std::endl;
         return 0;
@@ -72,6 +74,30 @@ int main(int argc, char** argv) {
       break;
   }
   DepthFirst(m);
+}
+
+int to_int(std::string num) {
+  int n = 0;
+  for (size_t i = 0; i < num.size(); ++i) {
+    int num_i = int(num[i]);
+    switch (num_i) {
+      case 48: // 0
+      case 49: // 1
+      case 50: // 2
+      case 51: // 3
+      case 52: // 4
+      case 53: // 5
+      case 54: // 6
+      case 55: // 7
+      case 56: // 8
+      case 57: // 9
+        n += (pow(10, num.size() - 1 - i) * (num_i - 48));
+        break;
+      default:
+        throw 0;
+    }
+  }
+  return n;
 }
 
 bool contains(std::vector<Node*>& nodes, Node* n) {

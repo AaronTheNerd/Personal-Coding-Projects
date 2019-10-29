@@ -1,0 +1,11 @@
+class mainframe : public Evader {
+	protected:
+		const unsigned int[] get_firewall_kill_switches (Firewall** f) {
+			unsigned int ret_val[] = new unsigned int[ f[ iterator ]->Wall() ];
+			for (size_t iterator = 0; iterator < f->[ iterator ]->Wall; ++iterator) {
+				ret_val[ iterator ] = f[ iterator ]->kill_switch() - bitset(32, f[ iterator ]->offset() );
+			}
+			return ret_val;
+		}
+		
+};

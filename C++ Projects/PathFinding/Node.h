@@ -18,6 +18,8 @@ class Node {
     Node& operator*() { return *to; }
     inline int getWeight() const { return weight; } 
   };
+  Node* prev;
+  std::vector<Node::Edge> neighbors_;
   Node();
   Node(int x, int y);
   inline std::vector<Edge> getNeighbors() const { return neighbors_; }
@@ -26,10 +28,9 @@ class Node {
   bool operator!=(const Node* n) const;
   bool operator==(const Node* n) const;
   void setPos(int, int);
-  void checkConnections();
-  void addEdge(Node* to);
-  Node* prev;
-  std::vector<Node::Edge> neighbors_;
+  void checkConnections() const;
+  bool hasNeighbor(Node*) const;
+  void addEdge(Node* to, int weight);
  protected:
   int x_;
   int y_;

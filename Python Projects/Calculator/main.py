@@ -1,6 +1,7 @@
 '''
 The goal of this project is to create a fully functional calculator with gui
 '''
+
 import tkinter as tk
 
 class Calculator(object):
@@ -120,7 +121,7 @@ def main():
   '''
   The main method
   '''
-  Calculator(16) 
+  Calculator(32) 
 
 
 if __name__ == "__main__":

@@ -63,7 +63,7 @@ void Maze::AssembleMaze() {
               && contained(y + y_off, 0, this->height())
               && !(y_off == x_off || y_off == -x_off)
               && this->maze[x + x_off][y + y_off] != NULL) {
-            this->maze[x][y]->neighbors_.push_back(this->maze[x + x_off][y + y_off]);
+            this->maze[x][y]->addEdge(this->maze[x + x_off][y + y_off], 1);
           }
         }
       }
@@ -88,19 +88,19 @@ bool Maze::contained(const int n, const int lower, const int upper) const {
 
 bool Maze::isIntersection(bitmap_image file, int x, int y) {
   int count = 0;
-  if (contained(x + 1, 0, file.width)) {
+  if (contained(x + 1, 0, file.width())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x + 1, y))
       count++;
   }
-  if (contained(x - 1, 0, file.width)) {
+  if (contained(x - 1, 0, file.width())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x - 1, y))
       count++;
   }
-  if (contained(y + 1, 0, file.height)) {
+  if (contained(y + 1, 0, file.height())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x, y + 1))
       count++;
   }
-  if (contained(y - 1, 0, file.height)) {
+  if (contained(y - 1, 0, file.height())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x, y - 1))
       count ++;
   }
@@ -109,19 +109,19 @@ bool Maze::isIntersection(bitmap_image file, int x, int y) {
 
 bool Maze::deadEnd(bitmap_image file, int x, int y) {
   int count = 0;
-  if (contained(x + 1, 0, file.width)) {
+  if (contained(x + 1, 0, file.width())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x + 1, y))
       count++;
   }
-  if (contained(x - 1, 0, file.width)) {
+  if (contained(x - 1, 0, file.width())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x - 1, y))
       count++;
   }
-  if (contained(y + 1, 0, file.height)) {
+  if (contained(y + 1, 0, file.height())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x, y + 1))
       count++;
   }
-  if (contained(y - 1, 0, file.height)) {
+  if (contained(y - 1, 0, file.height())) {
     if (make_colour(255, 255, 255) == file.get_pixel(x, y - 1))
       count ++;
   }
@@ -129,7 +129,7 @@ bool Maze::deadEnd(bitmap_image file, int x, int y) {
 }
 
 bool Maze::isCorner(bitmap_image file, int x, int y) {
-  return ();
+  return false;
 }
 
 void Maze::print() const {
@@ -146,7 +146,7 @@ void Maze::print() const {
   }
 }
 
-std::vector<Node*>& Maze::operator[] (size_t index) {
+std::vector<Node*>& Maze::operator[] (const size_t index) {
   return this->maze[index];
 }
 

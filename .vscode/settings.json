@@ -2,5 +2,6 @@
   "python.linting.pylintEnabled": true,
   "files.associations": {
     "iostream": "cpp"
-  }
+  },
+  "python.pythonPath": "C:\\Users\\AaronTheNerd\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe"
 }
