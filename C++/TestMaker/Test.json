@@ -1,0 +1,39 @@
+{
+	"Test": {
+		"desc": "Sample quiz",
+		"nums": 5,
+		"title": "Quiz 1",
+		"Q1": {
+			"correct": "Correct",
+			"incorrects": ["Incorrect 1","Incorrect 2"],
+			"prompt": "Multiple choice question",
+			"pts": 5,
+			"type": "MULTIPLE_CHOICE"
+		},
+		"Q2": {
+			"correct": true,
+			"prompt": "True or false question",
+			"pts": 5,
+			"type": "TRUE_OR_FALSE"
+		},
+		"Q3": {
+			"correct": "Expected answer",
+			"prompt": "Extended Response question",
+			"pts": 5,
+			"type": "EXTENDED_RESPONSE"
+		},
+		"Q4": {
+			"correct": "Correct",
+			"incorrects": ["Incorrect 1","Incorrect 2"],
+			"prompt": "Multiple choice question 2",
+			"pts": 10,
+			"type": "MULTIPLE_CHOICE"
+		},
+		"Q5": {
+			"correct": true,
+			"prompt": "True or false question 2",
+			"pts": 102,
+			"type": "TRUE_OR_FALSE"
+		}
+	}
+}
