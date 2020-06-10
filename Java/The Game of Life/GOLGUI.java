@@ -133,7 +133,7 @@ public class GOLGUI implements MouseListener,MouseMotionListener,ActionListener,
 	class DrawingPanel extends JPanel  {
 		private int panelWidth;
 		private int panelHeight;
-		private int gridWidth = 40;
+		private int gridWidth = screenWidth/100;
 		public Cell[][] cells;
 		Graphics drawingArea;
 		Image display;
