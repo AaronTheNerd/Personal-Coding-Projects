@@ -7,7 +7,7 @@ function [p_new, bars_new] = currentfftv4(player,Y,FS,p_old, num_of_bars, cell_a
     % Modify the bounds above to make a power of 2
     n = length(s1);
     p = fft(s1);
-    nUniquePts = ceil(n / 16);
+    nUniquePts = ceil(n / 20);
     p = p(1:nUniquePts);
     p = abs(p);
     p = p/n;
