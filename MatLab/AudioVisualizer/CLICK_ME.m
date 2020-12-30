@@ -6,7 +6,7 @@ player.TimerPeriod=0.025;
 
 player.play;
 p = 0;
-num_of_bars = 5;
+num_of_bars = 3;
 bars = zeros(1, num_of_bars + 2);
 cell_arr = mat2cell([jet(num_of_bars); 0 0 0; 1 1 1], ones(num_of_bars + 2, 1));
 while(player.isplaying)
