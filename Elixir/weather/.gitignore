@@ -25,3 +25,6 @@ weather-*.tar
 
 # Temporary files for e.g. tests
 /tmp
+
+# Secret file with API key
+/lib/secret.txt
