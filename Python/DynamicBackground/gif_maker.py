@@ -15,13 +15,17 @@ SEPARATION_RADIUS = 50
 MAX_FAILS = 10000
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-ABS_PATH = "/home/aaronthenerd/Documents/Personal-Coding-Projects/Python/DynamicBackground/gifs"
-GIF_NUM = 1
 START_COLOR = (103, 235, 52)
 END_COLOR = (52, 155, 235)
 START_POINT = (0, 0)
 END_POINT = (WINDOW_WIDTH, WINDOW_HEIGHT)
 ALPHA = -1.8
+
+# File locations should be changed
+# Expected directory structure for gifs
+# <ABS_PATH>/<GIF_NUM>/<ALL_IMAGES_AND_JSON_HERE>
+ABS_PATH = "/home/aaronthenerd/Documents/Personal-Coding-Projects/Python/DynamicBackground/gifs"
+GIF_NUM = 1
 JSON_ABS_PATH = f"{ABS_PATH}/{GIF_NUM}/info.json"
 
 def draw(image, t, points, gradient):
