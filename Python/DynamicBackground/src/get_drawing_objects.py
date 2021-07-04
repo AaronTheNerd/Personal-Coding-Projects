@@ -33,6 +33,11 @@ def get_triangle_coloring_object():
                 start_color=TRIANGLE_COLORING_CONFIGS["START_COLOR"],
                 end_color=TRIANGLE_COLORING_CONFIGS["END_COLOR"],
                 alpha=TRIANGLE_COLORING_CONFIGS["ALPHA"])
+    elif TRIANGLE_COLORING_CONFIGS["TYPE"] == 'FlatShader':
+        return FlatShader(
+                cam_pos=TRIANGLE_COLORING_CONFIGS["CAM_POS"],
+                gain=TRIANGLE_COLORING_CONFIGS["GAIN"]
+        )
     else:
         raise RuntimeError(f"Incorrect 'TRIANGLE_COLORING_CONFIGS' attribute 'TYPE': {TRIANGLE_COLORING_CONFIGS['TYPE']}")
 
