@@ -1,0 +1,70 @@
+{
+    "RANDOM_SEED": false,
+    "SEED": 1625373532,
+    "WIDTH": 3840,
+    "HEIGHT": 2160,
+    "NUM_OF_FRAMES": 300,
+    "MS_PER_FRAME": 11,
+    "POINT_CONFIGS": {
+        "AMPLITUDE": 10000,
+        "INTENSITY": 0.1,
+        "SCALE": 10,
+        "OFFSET_X": 100,
+        "Z_MAX": 255,
+        "NUM_OF_POINTS": 50,
+        "SEPARATION_RADIUS": 100,
+        "MAX_FAILS": 10000,
+        "BORDER_CONFIGS": {
+            "TOP": true,
+            "BOTTOM": true,
+            "LEFT": true,
+            "RIGHT": true,
+            "SEPARATION": 250
+        },
+        "DRIFTING_CONFIGS": {
+            "PERCENTAGE": 0.5,
+            "X_MIN": -2,
+            "X_MAX": 2,
+            "Y_MIN": -2,
+            "Y_MAX": 2
+        }
+    },
+    "TRIANGLE_COLORING_CONFIGS": {
+        "TYPE": "HSVExponentialGradientContinuous",
+        "START_X": 0,
+        "START_Y": 0,
+        "END_X": 3840,
+        "END_Y": 2160,
+        "START_COLOR": [
+            66,
+            245,
+            126
+        ],
+        "END_COLOR": [
+            66,
+            224,
+            245
+        ],
+        "ALPHA": -1
+    },
+    "LINE_DRAWING_CONFIGS": {
+        "DRAW_LINES": true,
+        "TYPE": "SolidLine",
+        "COLOR": [
+            255,
+            255,
+            255
+        ],
+        "WIDTH": 7
+    },
+    "POINT_DRAWING_CONFIGS": {
+        "DRAW_POINTS": false,
+        "TYPE": "PlainPoint",
+        "COLOR": [
+            0,
+            0,
+            0
+        ],
+        "WIDTH": 20
+    }
+}
