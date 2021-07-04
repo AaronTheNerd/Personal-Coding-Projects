@@ -29,7 +29,7 @@ class Triangle(object):
     def has_point(self, p):
         return (self.a == p) or (self.b is p) or (self.b == p) or (self.c is p) or (self.c == p) or (self.a is p)
     def center(self):
-        return ((self.a.x + self.b.x + self.c.x) / 3, (self.a.y + self.b.y + self.c.y) / 3)
+        return ((self.a.x + self.b.x + self.c.x) / 3, (self.a.y + self.b.y + self.c.y) / 3, (self.a.z + self.b.z + self.c.z) / 3)
 
 ################################### Methods ###################################
 
