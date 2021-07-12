@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 
 import generate_points
 import point
-from configs import CONFIGS, LINE_DRAWING_CONFIGS, POINT_DRAWING_CONFIGS
+from configs import CONFIGS, GIF_CONFIGS, LINE_DRAWING_CONFIGS, POINT_DRAWING_CONFIGS
 from get_drawing_objects import *
 from triangulation import *
 
@@ -36,9 +36,9 @@ def draw(image, t, points, triangle_coloring, line_coloring, point_coloring):
 
 def run():
     # Create directory for files if necessary
-    os.system(f"mkdir {ABS_PATH}/{CONFIGS['GIF_NUM']}")
+    os.system(f"mkdir {ABS_PATH}/{GIF_CONFIGS['NUM']}")
     # Remove any existing files in directory
-    os.system(f"rm {ABS_PATH}/{CONFIGS['GIF_NUM']}/*")
+    os.system(f"rm {ABS_PATH}/{GIF_CONFIGS['NUM']}/*")
     # Generate random seed if necessary
     if CONFIGS["RANDOM_SEED"]:
         CONFIGS["SEED"] = round(time.time())
@@ -59,15 +59,15 @@ def run():
                 (CONFIGS["BACKGROUND_COLOR"][0], CONFIGS["BACKGROUND_COLOR"][1], CONFIGS["BACKGROUND_COLOR"][2]))
         image_draw = ImageDraw.Draw(image)
         draw(image_draw, t, points, triangle_coloring, line_coloring, point_coloring)
-        file_name = f"{ABS_PATH}/{CONFIGS['GIF_NUM']}/image#{str(i).zfill(3)}.bmp"
+        file_name = f"{ABS_PATH}/{GIF_CONFIGS['NUM']}/image#{str(i).zfill(3)}.bmp"
         image.save(file_name)
         i += 1
     # Convert frames to gif
-    os.system(f"convert -delay {CONFIGS['MS_PER_FRAME']} -loop 0 {ABS_PATH}/{CONFIGS['GIF_NUM']}/*.bmp {ABS_PATH}/{CONFIGS['GIF_NUM']}/gif{CONFIGS['GIF_NUM']}.gif")
+    os.system(f"convert -delay {GIF_CONFIGS['MS_PER_FRAME']} -loop 0 {ABS_PATH}/{GIF_CONFIGS['NUM']}/*.bmp -crop {CONFIGS['WIDTH'] - 2 * GIF_CONFIGS['MARGIN']}x{CONFIGS['HEIGHT'] - 2 * GIF_CONFIGS['MARGIN']}+{GIF_CONFIGS['MARGIN']}+{GIF_CONFIGS['MARGIN']} +repage {ABS_PATH}/{GIF_CONFIGS['NUM']}/gif{GIF_CONFIGS['NUM']}.gif")
     # Remove frames
-    os.system(f"rm {ABS_PATH}/{CONFIGS['GIF_NUM']}/*.bmp")
+    os.system(f"rm {ABS_PATH}/{GIF_CONFIGS['NUM']}/*.bmp")
     # Create copy of configs to be able to remake the gif
-    with open(f"{ABS_PATH}/{CONFIGS['GIF_NUM']}/config.json", 'w+') as file:
+    with open(f"{ABS_PATH}/{GIF_CONFIGS['NUM']}/config.json", 'w+') as file:
         json.dump(CONFIGS, file, indent=4)
 
 if __name__ == "__main__":
