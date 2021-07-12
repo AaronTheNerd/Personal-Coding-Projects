@@ -1,62 +1,111 @@
 {
     "RANDOM_SEED": false,
-    "SEED": 1625383365,
-    "WIDTH": 3840,
-    "HEIGHT": 2160,
-    "NUM_OF_FRAMES": 100,
-    "MS_PER_FRAME": 11,
-    "GIF_NUM": 1,
-    "BACKGROUND_COLOR": [20, 20, 20],
+    "SEED": 1625466190,
+    "WIDTH": 1406,
+    "HEIGHT": 808,
+    "NUM_OF_FRAMES": 50,
+    "BACKGROUND_COLOR": [
+        0,
+        0,
+        0
+    ],
+    "GIF_CONFIGS": {
+        "NUM": 6,
+        "MS_PER_FRAME": 11,
+        "MARGIN": 20
+    },
     "POINT_CONFIGS": {
-        "AMPLITUDE": 250,
-        "INTENSITY": 0.01,
-        "SCALE": 50,
+        "AMPLITUDE": 1000,
+        "INTENSITY": 0.005,
+        "SCALE": 10,
         "OFFSET_Y": 100,
-        "NUM_OF_POINTS": 100,
-        "SEPARATION_RADIUS": 100,
+        "NUM_OF_POINTS": 1000,
+        "SEPARATION_RADIUS": 20,
         "MAX_FAILS": 10000,
         "BORDER_CONFIGS": {
             "TOP": true,
             "BOTTOM": true,
-            "LEFT": false,
-            "RIGHT": false,
-            "SEPARATION": 450
+            "LEFT": true,
+            "RIGHT": true,
+            "SEPARATION": 80
         },
         "DRIFTING_CONFIGS": {
-            "PERCENTAGE": 1,
-            "X_MIN": 1,
+            "PERCENTAGE": 0,
+            "X_MIN": -1,
             "X_MAX": 1,
-            "Y_MIN": 0,
-            "Y_MAX": 0
+            "Y_MIN": -1,
+            "Y_MAX": 1
         }
     },
     "TRIANGLE_COLORING_CONFIGS": {
-        "TYPE": "FlatShader",
-        "CAM_POS": [
-            1920,
-            2500,
-            10
-        ],
-        "GAIN": 15
+        "TYPE": "MultiLightShader",
+        "KWARGS": {
+            "AMBIENT_COLOR": [156, 47, 11],
+            "AMBIENT_VECTOR": [0, 1.0, 0.2],
+            "AMBIENT_GAIN": 3000000,
+            "AMBIENT_DEFINITION": 10,
+            "GAIN": 1000,
+            "LIGHTS": [
+                {
+                    "POS": [703, 0, 1000],
+                    "INTENSITY": 500,
+                    "COLOR": [255, 0, 81]
+                },
+                {
+                    "POS": [1406, 808, 1000],
+                    "INTENSITY": 200,
+                    "COLOR": [255, 247, 0]
+                },
+                {
+                    "POS": [0, 808, 1000],
+                    "INTENSITY": 200,
+                    "COLOR": [255, 247, 0]
+                },
+                {
+                    "POS": [703, 20, 100],
+                    "INTENSITY": 20,
+                    "COLOR": [255, 255, 60]
+                },
+                {
+                    "POS": [703, 150, 80],
+                    "INTENSITY": 20,
+                    "COLOR": [255, 255, 40]
+                },
+                {
+                    "POS": [703, 350, 40],
+                    "INTENSITY": 5,
+                    "COLOR": [255, 255, 10]
+                },
+                {
+                    "POS": [703, 20, 10],
+                    "INTENSITY": 15,
+                    "COLOR": [255, 255, 255]
+                }
+            ]
+        }
     },
     "LINE_DRAWING_CONFIGS": {
         "DRAW_LINES": false,
         "TYPE": "SolidLine",
-        "COLOR": [
-            255,
-            255,
-            255
-        ],
-        "WIDTH": 7
+        "KWARGS": {
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
+            "WIDTH": 2
+        }
     },
     "POINT_DRAWING_CONFIGS": {
         "DRAW_POINTS": false,
         "TYPE": "PlainPoint",
-        "COLOR": [
-            0,
-            0,
-            0
-        ],
-        "WIDTH": 20
+        "KWARGS": {
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
+            "WIDTH": 5
+        }
     }
 }
