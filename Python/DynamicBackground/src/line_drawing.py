@@ -1,35 +1,29 @@
 from colorsys import hsv_to_rgb, rgb_to_hsv
+from helpers import interpolate
 import math
 
-from configs import POINT_CONFIGS
-
 class SolidLine(object):
-    def __init__(self, color, width):
-        self.color = color
-        self.width = width
+    def __init__(self, COLOR=None, WIDTH=1):
+        self.color = COLOR if COLOR is not None else [0] * 3
+        self.width = WIDTH
     def get_color(self, edge):
         return self.color
     def get_width(self, edge):
         return self.width
 
 class FadingLine(object):
-    def __init__(self, start_color, end_color, min_dist, max_dist, width):
-        self.start_color = rgb_to_hsv(start_color[0] / 255, start_color[1] / 255, start_color[2] / 255)
-        self.end_color = rgb_to_hsv(end_color[0] / 255, end_color[1] / 255, end_color[2] / 255)
-        self.min_dist = min_dist
-        self.max_dist = max_dist
-        self.width = width
-    def __dict__(self):
-        rgb_start = hsv_to_rgb(self.start_color[0], self.start_color[1], self.start_color[2])
-        rgb_end = hsv_to_rgb(self.end_color[0], self.end_color[1], self.end_color[2])
-        return {
-            "TYPE": self.__class__.__name__,
-            "START_COLOR": [int(rgb_start[0] * 255), int(rgb_start[1] * 255), int(rgb_start[2] * 255)],
-            "END_COLOR": [int(rgb_end[0] * 255), int(rgb_end[1] * 255), int(rgb_end[2] * 255)],
-            "MIN_DIST": self.min_dist,
-            "MAX_DIST": self.min_dist,
-            "WIDTH": self.width,
-        }
+    def __init__(self, START_COLOR=None, END_COLOR=None, MIN_DIST=0, MAX_DIST=0, WIDTH=1):
+        self.start_color = rgb_to_hsv(*[START_COLOR[i] / 255 for i in range(3)]) if START_COLOR is not None else [0.0] * 3
+        self.end_color = rgb_to_hsv(*[END_COLOR[i] / 255 for i in range(3)]) if END_COLOR is not None else [0.0] * 3
+        self.min_dist = MIN_DIST
+        self.max_dist = MAX_DIST
+        self.width = WIDTH
+    def get_color_at(self, t):
+        h = interpolate(self.start_color[0], self.end_color[0], t)
+        s = interpolate(self.start_color[1], self.end_color[1], t)
+        v = interpolate(self.start_color[2], self.end_color[2], t)
+        rgb = hsv_to_rgb(h, s, v)
+        return (int(rgb[0] * 255), int(rgb[1] * 255), int(rgb[2] * 255))
     def get_color(self, edge):
         dist = math.sqrt((edge[0].x - edge[1].x) ** 2 + (edge[0].y - edge[1].y) ** 2)
         if dist < self.min_dist:
@@ -38,6 +32,7 @@ class FadingLine(object):
         if dist > self.max_dist:
             end_rgb = hsv_to_rgb(self.end_color[0], self.end_color[1], self.end_color[2])
             return [int(end_rgb[0] * 255), int(end_rgb[1] * 255), int(end_rgb[2] * 255)]
-        return self.color
+        t = (dist - self.min_dist) / (self.max_dist - self.min_dist)
+        return self.get_color_at(t)
     def get_width(self, edge):
         return self.width
