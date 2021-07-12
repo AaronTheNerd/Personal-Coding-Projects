@@ -1,70 +1,84 @@
 {
     "RANDOM_SEED": false,
-    "SEED": 1625373532,
-    "WIDTH": 3840,
-    "HEIGHT": 2160,
-    "NUM_OF_FRAMES": 300,
-    "MS_PER_FRAME": 11,
+    "SEED": 1626029017,
+    "WIDTH": 1406,
+    "HEIGHT": 808,
+    "NUM_OF_FRAMES": 50,
+    "BACKGROUND_COLOR": [
+        0,
+        0,
+        0
+    ],
+    "GIF_CONFIGS": {
+        "NUM": 3,
+        "MS_PER_FRAME": 10,
+        "MARGIN": 20
+    },
     "POINT_CONFIGS": {
-        "AMPLITUDE": 10000,
-        "INTENSITY": 0.1,
+        "AMPLITUDE": 4000,
+        "INTENSITY": 0.005,
         "SCALE": 10,
-        "OFFSET_X": 100,
-        "Z_MAX": 255,
-        "NUM_OF_POINTS": 50,
-        "SEPARATION_RADIUS": 100,
+        "OFFSET_Y": 100,
+        "NUM_OF_POINTS": 100,
+        "SEPARATION_RADIUS": 20,
         "MAX_FAILS": 10000,
         "BORDER_CONFIGS": {
             "TOP": true,
             "BOTTOM": true,
             "LEFT": true,
             "RIGHT": true,
-            "SEPARATION": 250
+            "SEPARATION": 60
         },
         "DRIFTING_CONFIGS": {
-            "PERCENTAGE": 0.5,
-            "X_MIN": -2,
-            "X_MAX": 2,
-            "Y_MIN": -2,
-            "Y_MAX": 2
+            "PERCENTAGE": 0,
+            "X_MIN": -1,
+            "X_MAX": 1,
+            "Y_MIN": 0,
+            "Y_MAX": 0
         }
     },
     "TRIANGLE_COLORING_CONFIGS": {
         "TYPE": "HSVExponentialGradientContinuous",
-        "START_X": 0,
-        "START_Y": 0,
-        "END_X": 3840,
-        "END_Y": 2160,
-        "START_COLOR": [
-            66,
-            245,
-            126
-        ],
-        "END_COLOR": [
-            66,
-            224,
-            245
-        ],
-        "ALPHA": -1
+        "KWARGS": {
+            "START_X": 0,
+            "START_Y": 0,
+            "END_X": 1406,
+            "END_Y": 808,
+            "START_COLOR": [
+                235,
+                52,
+                52
+            ],
+            "END_COLOR": [
+                66,
+                224,
+                245
+            ],
+            "ALPHA": 0.8
+        }
     },
     "LINE_DRAWING_CONFIGS": {
         "DRAW_LINES": true,
         "TYPE": "SolidLine",
-        "COLOR": [
-            255,
-            255,
-            255
-        ],
-        "WIDTH": 7
+        "KWARGS": {
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
+            "WIDTH": 2
+        }
     },
     "POINT_DRAWING_CONFIGS": {
         "DRAW_POINTS": false,
         "TYPE": "PlainPoint",
-        "COLOR": [
-            0,
-            0,
-            0
-        ],
-        "WIDTH": 20
+        "KWARGS": {
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
+            "WIDTH": 5
+        }
     }
 }

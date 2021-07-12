@@ -1,0 +1,84 @@
+{
+    "RANDOM_SEED": false,
+    "SEED": 1625466190,
+    "WIDTH": 1406,
+    "HEIGHT": 808,
+    "NUM_OF_FRAMES": 250,
+    "BACKGROUND_COLOR": [
+        0,
+        255,
+        0
+    ],
+    "GIF_CONFIGS": {
+        "NUM": 4,
+        "MS_PER_FRAME": 11,
+        "MARGIN": 20
+    },
+    "POINT_CONFIGS": {
+        "AMPLITUDE": 3000,
+        "INTENSITY": 0.005,
+        "SCALE": 10,
+        "OFFSET_Y": 100,
+        "NUM_OF_POINTS": 500,
+        "SEPARATION_RADIUS": 70,
+        "MAX_FAILS": 10000,
+        "BORDER_CONFIGS": {
+            "TOP": true,
+            "BOTTOM": true,
+            "LEFT": true,
+            "RIGHT": true,
+            "SEPARATION": 80
+        },
+        "DRIFTING_CONFIGS": {
+            "PERCENTAGE": 1,
+            "X_MIN": -1,
+            "X_MAX": 1,
+            "Y_MIN": -1,
+            "Y_MAX": 1
+        }
+    },
+    "TRIANGLE_COLORING_CONFIGS": {
+        "TYPE": "HSVLinearGradientDiscrete",
+        "KWARGS": {
+            "START_X": 0,
+            "START_Y": 808,
+            "END_X": 1406,
+            "END_Y": 0,
+            "START_COLOR": [
+                0,
+                255,
+                0
+            ],
+            "END_COLOR": [
+                230,
+                255,
+                200
+            ],
+            "NUM_OF_COLORS": 15
+        }
+    },
+    "LINE_DRAWING_CONFIGS": {
+        "DRAW_LINES": true,
+        "TYPE": "SolidLine",
+        "KWARGS": {
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
+            "WIDTH": 2
+        }
+    },
+    "POINT_DRAWING_CONFIGS": {
+        "DRAW_POINTS": true,
+        "TYPE": "PlainPoint",
+        "KWARGS": {
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
+            "WIDTH": 5
+        }
+    }
+}
