@@ -2,7 +2,7 @@ import math
 
 from opensimplex import OpenSimplex
 
-from configs import CONFIGS, POINT_CONFIGS
+from configs import CONFIGS, POINT_CONFIGS, WIDTH, HEIGHT
 
 open_simplex = None
 
@@ -46,10 +46,10 @@ class SwayingPoint(StaticPoint):
                 y=self.y * POINT_CONFIGS["SCALE"],
                 z=POINT_CONFIGS["INTENSITY"] * math.cos(2 * math.pi * t),
                 w=POINT_CONFIGS["INTENSITY"] * math.sin(2 * math.pi * t))
-        if new_x < 0.0 or new_x > CONFIGS["WIDTH"]:
-            new_x = float((int(new_x) + CONFIGS["WIDTH"]) % CONFIGS["WIDTH"])
-        if new_y < 0.0 or new_y > CONFIGS["HEIGHT"]:
-            new_y = float((int(new_y) + CONFIGS["HEIGHT"]) % CONFIGS["HEIGHT"])
+        if new_x < 0.0 or new_x > WIDTH:
+            new_x = float((int(new_x) + WIDTH) % WIDTH)
+        if new_y < 0.0 or new_y > HEIGHT:
+            new_y = float((int(new_y) + HEIGHT) % HEIGHT)
         return SwayingPoint(new_x, new_y, self.z)
 
 class DriftingPoint(SwayingPoint):
@@ -65,10 +65,10 @@ class DriftingPoint(SwayingPoint):
         return super().__eq__(p)
     def at(self, t):
         shifted_point = super().at(t)
-        new_x = shifted_point.x + CONFIGS["WIDTH"] * t * self.dx
-        new_y = shifted_point.y + CONFIGS["HEIGHT"] * t * self.dy
-        if new_x < 0.0 or new_x > CONFIGS["WIDTH"]:
-            new_x = float((int(new_x) + CONFIGS["WIDTH"]) % CONFIGS["WIDTH"])
-        if new_y < 0.0 or new_y > CONFIGS["HEIGHT"]:
-            new_y = float((int(new_y) + CONFIGS["HEIGHT"]) % CONFIGS["HEIGHT"])
+        new_x = shifted_point.x + WIDTH * t * self.dx
+        new_y = shifted_point.y + HEIGHT * t * self.dy
+        if new_x < 0.0 or new_x > WIDTH:
+            new_x = float((int(new_x) + WIDTH) % WIDTH)
+        if new_y < 0.0 or new_y > HEIGHT:
+            new_y = float((int(new_y) + HEIGHT) % HEIGHT)
         return DriftingPoint(new_x, new_y, self.z)

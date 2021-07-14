@@ -2,42 +2,42 @@ import math
 import random
 
 from point import DriftingPoint, StaticPoint, SwayingPoint
-from configs import BORDER_CONFIGS, CONFIGS, DRIFTING_CONFIGS, POINT_CONFIGS
+from configs import *
 
 def seed(seed):
     random.seed(seed)
 
 def generate_border_points():
     border_points = []
-    num_of_x_border_points = math.floor(CONFIGS["WIDTH"] / BORDER_CONFIGS["SEPARATION"]) + 1
-    x_dist = CONFIGS["WIDTH"] / (num_of_x_border_points - 1)
+    num_of_x_border_points = math.floor(WIDTH / BORDER_CONFIGS["SEPARATION"]) + 1
+    x_dist = WIDTH / (num_of_x_border_points - 1)
     for i in range(num_of_x_border_points):
         if BORDER_CONFIGS["TOP"]:
             border_points.append(StaticPoint(x_dist * i, 1))
         if BORDER_CONFIGS["BOTTOM"]:
-            border_points.append(StaticPoint(x_dist * i, CONFIGS["HEIGHT"] - 1))
-    num_of_y_border_points = math.floor(CONFIGS["HEIGHT"] / BORDER_CONFIGS["SEPARATION"]) + 1
-    y_dist = CONFIGS["HEIGHT"] / (num_of_y_border_points - 1)
+            border_points.append(StaticPoint(x_dist * i, HEIGHT - 1))
+    num_of_y_border_points = math.floor(HEIGHT / BORDER_CONFIGS["SEPARATION"]) + 1
+    y_dist = HEIGHT / (num_of_y_border_points - 1)
     for i in range(num_of_y_border_points-2):
         if BORDER_CONFIGS["LEFT"]:
             border_points.append(StaticPoint(1, y_dist * (i + 1)))
         if BORDER_CONFIGS["RIGHT"]:
-            border_points.append(StaticPoint(CONFIGS["WIDTH"] - 1, y_dist * (i + 1)))
+            border_points.append(StaticPoint(WIDTH - 1, y_dist * (i + 1)))
     return border_points
 
 def random_point():
     global open_simplex
     if random.random() < DRIFTING_CONFIGS["PERCENTAGE"]:
         return DriftingPoint(
-            random.uniform(0, CONFIGS["WIDTH"]),
-            random.uniform(0, CONFIGS["HEIGHT"]),
+            random.uniform(0, WIDTH),
+            random.uniform(0, HEIGHT),
             None,
             random.randint(DRIFTING_CONFIGS["X_MIN"], DRIFTING_CONFIGS["X_MAX"]),
             random.randint(DRIFTING_CONFIGS["Y_MIN"], DRIFTING_CONFIGS["Y_MAX"]))
     else:
         return SwayingPoint(
-            random.uniform(0, CONFIGS["WIDTH"]),
-            random.uniform(0, CONFIGS["HEIGHT"]))
+            random.uniform(0, WIDTH),
+            random.uniform(0, HEIGHT))
 
 def generate_points():
     global open_simplex

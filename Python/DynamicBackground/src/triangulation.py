@@ -7,7 +7,7 @@
 ################################### Imports ###################################
 import math
 
-from configs import CONFIGS
+from configs import CONFIGS, WIDTH, HEIGHT
 from point import StaticPoint
 
 ############################### Helper Classes ################################
@@ -139,31 +139,31 @@ def isInside(T, D):
 ############################# Start Triangulation #############################
 # https://en.wikipedia.org/wiki/Bowyer%E2%80%93Watson_algorithm#/media/File:Bowyer-Watson_6.png
 # Super Triangle Math                                                         #
-# Point b: (-CONFIGS["WIDTH"] / 2, CONFIGS["HEIGHT"])                         #
-# Point c: (3 * CONFIGS["WIDTH"] / 2, CONFIGS["HEIGHT"])                      #
+# Point b: (-WIDTH / 2, HEIGHT)                                               #
+# Point c: (3 * WIDTH / 2, HEIGHT)                                            #
 # Solving for point a                                                         #
-#    Set point a.x to the center of canvas = CONFIGS["WIDTH"] / 2             #
+#    Set point a.x to the center of canvas = WIDTH / 2                        #
 #    Find angle of left angle of super triangle                               #
-#        theta = atan(CONFIGS["HEIGHT"] / (CONFIGS["WIDTH"] / 2))             #
-#              = atan(2 * CONFIGS["HEIGHT"] / CONFIGS["WIDTH"])               #
-#    Find distance from bottom of canvas (CONFIGS["HEIGHT"]) to the point a.y #
-#        tan(theta) = dist / CONFIGS["WIDTH"] =>                              #
-#              dist = CONFIGS["WIDTH"] * tan(theta)                           #
+#        theta = atan(HEIGHT / (WIDTH / 2))                                   #
+#              = atan(2 * HEIGHT / WIDTH)                                     #
+#    Find distance from bottom of canvas (HEIGHT) to the point a.y            #
+#        tan(theta) = dist / WIDTH =>                                         #
+#              dist = WIDTH * tan(theta)                                      #
 #    Solve for a.y                                                            #
-#    a.y = CONFIGS["HEIGHT"] - dist                                           #
-#        = CONFIGS["HEIGHT"] - CONFIGS["WIDTH"] * tan(theta)                  #
-#        = CONFIGS["HEIGHT"] - CONFIGS["WIDTH"]                               #
-#             * tan(atan(2 * CONFIGS["HEIGHT"] / CONFIGS["WIDTH"]))           #
-#        = CONFIGS["HEIGHT"] - CONFIGS["WIDTH"] * 2                           #
-#             * CONFIGS["HEIGHT"] / CONFIGS["WIDTH"]                          #
-#        = CONFIGS["HEIGHT"] - 2 * CONFIGS["HEIGHT"]                          #
-#        = -CONFIGS["HEIGHT"]                                                 #
-#    Point a: (CONFIGS["WIDTH"] / 2, -CONFIGS["HEIGHT"])                      #
+#    a.y = HEIGHT - dist                                                      #
+#        = HEIGHT - WIDTH * tan(theta)                                        #
+#        = HEIGHT - WIDTH                                                     #
+#             * tan(atan(2 * HEIGHT / WIDTH))                                 #
+#        = HEIGHT - WIDTH * 2                                                 #
+#             * HEIGHT / WIDTH                                                #
+#        = HEIGHT - 2 * HEIGHT                                                #
+#        = -HEIGHT                                                            #
+#    Point a: (WIDTH / 2, -HEIGHT)                                            #
 ###############################################################################
 def BowyerWatson(points, t):
-    super_a = StaticPoint(CONFIGS["WIDTH"] / 2, -CONFIGS["HEIGHT"])
-    super_b = StaticPoint(-CONFIGS["WIDTH"] / 2, CONFIGS["HEIGHT"])
-    super_c = StaticPoint(3 * CONFIGS["WIDTH"] / 2, CONFIGS["HEIGHT"])
+    super_a = StaticPoint(WIDTH / 2, -HEIGHT)
+    super_b = StaticPoint(-WIDTH / 2, HEIGHT)
+    super_c = StaticPoint(3 * WIDTH / 2, HEIGHT)
     triangles = [Triangle(super_a, super_b, super_c)]
     for point in points:
         curr_point = point.at(t)
