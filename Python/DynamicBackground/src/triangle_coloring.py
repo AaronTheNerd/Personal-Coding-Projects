@@ -35,6 +35,7 @@ class HSVLinearGradientContinuous(object):
         center = triangle.center()
         x, y = center[0], center[1]
         t = (self.delta_x * (x - self.start_x) + self.delta_y * (y - self.start_y)) / ((self.delta_x)**2 + (self.delta_y)**2)
+        t = max(0.0, min(t, 1.0))
         return self.get_color_at(t)
 
 class HSVExponentialGradientContinuous(HSVLinearGradientContinuous):
@@ -45,6 +46,7 @@ class HSVExponentialGradientContinuous(HSVLinearGradientContinuous):
         center = triangle.center()
         x, y = center[0], center[1]
         t = (self.delta_x * (x - self.start_x) + self.delta_y * (y - self.start_y)) / ((self.delta_x)**2 + (self.delta_y)**2)
+        t = max(0.0, min(t, 1.0))
         t_scaled = (math.exp(self.alpha * t) - 1) / (math.exp(self.alpha) - 1)
         return super().get_color_at(t_scaled)
 
@@ -56,6 +58,7 @@ class HSVLinearGradientDiscrete(HSVLinearGradientContinuous):
         center = triangle.center()
         x, y = center[0], center[1]
         t = (self.delta_x * (x - self.start_x) + self.delta_y * (y - self.start_y)) / ((self.delta_x)**2 + (self.delta_y)**2)
+        t = max(0.0, min(t, 1.0))
         t *= self.num_of_colors
         t = int(t)
         t /= self.num_of_colors - 1
@@ -93,16 +96,17 @@ class AmbientShader(object):
             normal = [-normal[i] for i in range(3)]
         # Normalize normal
         return AmbientShader.normalize3d(normal)
-    def get_color(self, triangle):
+    def get_facing_ratio(self, triangle):
         normal = AmbientShader.get_normal(triangle)
         if normal is None:
             return [0, 0, 0]
         # Normalize inverse ray direction
         # Generate facing ratio
-        facing_ratio = AmbientShader.dot_product3d(normal, self.ambient_vector) ** self.ambient_definition
-        facing_ratio *= self.ambient_gain
+        facing_ratio = self.ambient_gain * max(0.0, AmbientShader.dot_product3d(normal, self.ambient_vector)) ** self.ambient_definition
         # Clamp facing ratio between 0 and 1
-        t = min(max(0.0, facing_ratio), 1.0)
+        return min(facing_ratio, 1.0)
+    def get_color(self, triangle):
+        t = self.get_facing_ratio(triangle)
         return tuple([int(self.ambient_color[i] * t) for i in range(3)])
 
 class MultiLightShader(AmbientShader):
@@ -122,3 +126,13 @@ class MultiLightShader(AmbientShader):
             light_ratio = min(light["INTENSITY"] / dist_sqr * facing_ratio, 1.0)
             rgb = [light_ratio * light["COLOR"][i] + rgb[i] for i in range(3)]
         return tuple([int(rgb[i]) for i in range(3)])
+
+class ShadedGradient(HSVExponentialGradientContinuous, AmbientShader):
+    def __init__(self, START_X=0, START_Y=0, END_X=CONFIGS["WIDTH"], END_Y=CONFIGS["HEIGHT"], START_COLOR=None, END_COLOR=None, ALPHA=1.0,
+            AMBIENT_VECTOR=None, AMBIENT_GAIN=1.0, AMBIENT_DEFINITION=1):
+        HSVExponentialGradientContinuous.__init__(self, START_X=START_X, START_Y=START_Y, END_X=END_X, END_Y=END_Y, START_COLOR=START_COLOR, END_COLOR=END_COLOR, ALPHA=ALPHA)
+        AmbientShader.__init__(self, AMBIENT_COLOR=None, AMBIENT_VECTOR=AMBIENT_VECTOR, AMBIENT_GAIN=AMBIENT_GAIN, AMBIENT_DEFINITION=AMBIENT_DEFINITION)
+    def get_color(self, triangle):
+        gradient_color = HSVExponentialGradientContinuous.get_color(self, triangle)
+        facing_ratio = AmbientShader.get_facing_ratio(self, triangle)
+        return tuple([int(gradient_color[i] * facing_ratio) for i in range(3)])

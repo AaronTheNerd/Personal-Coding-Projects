@@ -16,6 +16,8 @@ def get_triangle_coloring_object():
         return AmbientShader(**TRIANGLE_COLORING_CONFIGS["KWARGS"])
     elif TRIANGLE_COLORING_CONFIGS["TYPE"] == 'MultiLightShader':
         return MultiLightShader(**TRIANGLE_COLORING_CONFIGS["KWARGS"])
+    elif TRIANGLE_COLORING_CONFIGS["TYPE"] == 'ShadedGradient':
+        return ShadedGradient(**TRIANGLE_COLORING_CONFIGS["KWARGS"])
     else:
         raise RuntimeError(f"Incorrect 'TRIANGLE_COLORING_CONFIGS' attribute 'TYPE': {TRIANGLE_COLORING_CONFIGS['TYPE']}")
 
