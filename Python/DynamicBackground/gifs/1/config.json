@@ -1,10 +1,14 @@
 {
     "RANDOM_SEED": false,
     "SEED": 1625600267,
-    "WIDTH": 1406,
-    "HEIGHT": 808,
+    "WIDTH": 1366,
+    "HEIGHT": 768,
     "NUM_OF_FRAMES": 50,
-    "BACKGROUND_COLOR": [0, 0, 0],
+    "BACKGROUND_COLOR": [
+        0,
+        0,
+        0
+    ],
     "GIF_CONFIGS": {
         "NUM": 1,
         "MS_PER_FRAME": 10,
@@ -36,8 +40,16 @@
     "TRIANGLE_COLORING_CONFIGS": {
         "TYPE": "AmbientShader",
         "KWARGS": {
-            "AMBIENT_COLOR": [98, 182, 227],
-            "AMBIENT_VECTOR": [1.0, 1.0, 1.0],
+            "AMBIENT_COLOR": [
+                98,
+                182,
+                227
+            ],
+            "AMBIENT_VECTOR": [
+                1.0,
+                1.0,
+                1.0
+            ],
             "AMBIENT_GAIN": 50000,
             "AMBIENT_DEFINITION": 20
         }
@@ -46,7 +58,11 @@
         "DRAW_LINES": false,
         "TYPE": "SolidLine",
         "KWARGS": {
-            "COLOR": [255, 255, 255],
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
             "WIDTH": 2
         }
     },
@@ -54,7 +70,11 @@
         "DRAW_POINTS": false,
         "TYPE": "PlainPoint",
         "KWARGS": {
-            "COLOR": [255, 255, 255],
+            "COLOR": [
+                255,
+                255,
+                255
+            ],
             "WIDTH": 5
         }
     }

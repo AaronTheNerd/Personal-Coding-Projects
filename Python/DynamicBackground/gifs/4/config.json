@@ -1,8 +1,8 @@
 {
     "RANDOM_SEED": false,
     "SEED": 1625466190,
-    "WIDTH": 1406,
-    "HEIGHT": 808,
+    "WIDTH": 1366,
+    "HEIGHT": 768,
     "NUM_OF_FRAMES": 250,
     "BACKGROUND_COLOR": [
         0,
@@ -40,10 +40,10 @@
     "TRIANGLE_COLORING_CONFIGS": {
         "TYPE": "HSVLinearGradientDiscrete",
         "KWARGS": {
-            "START_X": 0,
-            "START_Y": 808,
-            "END_X": 1406,
-            "END_Y": 0,
+            "START_X": 20,
+            "START_Y": 788,
+            "END_X": 1386,
+            "END_Y": 20,
             "START_COLOR": [
                 0,
                 255,

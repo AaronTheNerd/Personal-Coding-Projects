@@ -1,9 +1,9 @@
 {
     "RANDOM_SEED": false,
-    "SEED": 1625466190,
-    "WIDTH": 1406,
-    "HEIGHT": 808,
-    "NUM_OF_FRAMES": 50,
+    "SEED": 1626189763,
+    "WIDTH": 1366,
+    "HEIGHT": 768,
+    "NUM_OF_FRAMES": 250,
     "BACKGROUND_COLOR": [
         0,
         0,
@@ -12,15 +12,15 @@
     "GIF_CONFIGS": {
         "NUM": 5,
         "MS_PER_FRAME": 11,
-        "MARGIN": 20
+        "MARGIN": 150
     },
     "POINT_CONFIGS": {
-        "AMPLITUDE": 3000,
-        "INTENSITY": 0.005,
-        "SCALE": 10,
+        "AMPLITUDE": 0,
+        "INTENSITY": 0,
+        "SCALE": 0,
         "OFFSET_Y": 100,
-        "NUM_OF_POINTS": 500,
-        "SEPARATION_RADIUS": 70,
+        "NUM_OF_POINTS": 350,
+        "SEPARATION_RADIUS": 50,
         "MAX_FAILS": 10000,
         "BORDER_CONFIGS": {
             "TOP": true,
@@ -30,70 +30,38 @@
             "SEPARATION": 80
         },
         "DRIFTING_CONFIGS": {
-            "PERCENTAGE": 0,
-            "X_MIN": -1,
+            "PERCENTAGE": 1,
+            "X_MIN": 1,
             "X_MAX": 1,
-            "Y_MIN": -1,
+            "Y_MIN": 1,
             "Y_MAX": 1
         }
     },
     "TRIANGLE_COLORING_CONFIGS": {
-        "TYPE": "MultiLightShader",
+        "TYPE": "ShadedGradient",
         "KWARGS": {
-            "AMBIENT_COLOR": [
+            "START_X": 150,
+            "START_Y": 150,
+            "END_X": 1516,
+            "END_Y": 918,
+            "START_COLOR": [
+                235,
+                52,
+                52
+            ],
+            "END_COLOR": [
                 66,
-                179,
+                224,
                 245
             ],
+            "ALPHA": 0.8,
             "AMBIENT_VECTOR": [
                 1.0,
                 1.0,
                 0.5
             ],
-            "AMBIENT_GAIN": 40000,
-            "AMBIENT_DEFINITION": 10,
-            "GAIN": 1000,
-            "LIGHTS": [
-                {
-                    "POS": [
-                        703,
-                        20,
-                        140
-                    ],
-                    "INTENSITY": 50,
-                    "COLOR": [
-                        245,
-                        66,
-                        224
-                    ]
-                },
-                {
-                    "POS": [
-                        1406,
-                        808,
-                        1000
-                    ],
-                    "INTENSITY": 270,
-                    "COLOR": [
-                        245,
-                        66,
-                        224
-                    ]
-                },
-                {
-                    "POS": [
-                        0,
-                        808,
-                        1000
-                    ],
-                    "INTENSITY": 270,
-                    "COLOR": [
-                        245,
-                        66,
-                        224
-                    ]
-                }
-            ]
+            "AMBIENT_GAIN": 55000,
+            "AMBIENT_DEFINITION": 10
         }
     },
     "LINE_DRAWING_CONFIGS": {
