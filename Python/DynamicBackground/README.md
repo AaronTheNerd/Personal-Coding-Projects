@@ -4,7 +4,7 @@
 
 
 ## Installation
----
+
 *Python 3.8 required*
 
 Required Python Dependencies:
@@ -16,11 +16,11 @@ Third Party Dependencies:
 - [ImageMagick](https://imagemagick.org/script/download.php)
 
 ## Notes on Usage
----
+
 The only file which needs to be modified in order to customize the gifs is `config.json`. However, if the file structure is changed there will be some issues in the source code (either `src/main.py` or `src/configs.py` depending on what is moved).
 
 ## `config.json` Attribute Notes
----
+
 Example config.json:
 ```
 {
@@ -140,7 +140,7 @@ Example config.json:
 
 
 ## Triangle Coloring
----
+
 `PlainColor`: Draws all triangles the same color.
 ```
     ...
